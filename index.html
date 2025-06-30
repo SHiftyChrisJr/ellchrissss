@@ -96,6 +96,7 @@
       overflow: hidden;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
       transition: transform 0.3s ease;
+      cursor: pointer;
     }
 
     .photo-card img {
@@ -177,26 +178,83 @@
     <h1>Happy 7 Months, My Love 🌸</h1>
     <div id="typedText"></div>
     <div class="gallery" id="gallery"></div>
+    <br>
+    <button onclick="showStory()">Our Story 💑</button>
+    <button onclick="startQuiz()">Memory Quiz 🎉</button>
+  </div>
+</div>
+
+<div id="story" class="screen">
+  <div class="overlay">
+    <h1>Our Story</h1>
+    <p style="color:#ba5c71; font-size:1.2em; line-height:1.6">
+      It started with laughter, a suitcase, and a shared coffee. From movie nights to surprise notes, our little story blossomed.<br><br>
+      From the first smile to the daily "I love you", every moment has been magic—and it's still just the beginning.
+    </p>
+    <br>
+    <button onclick="showAnniversary()">⬅ Back</button>
+  </div>
+</div>
+
+<div id="quiz" class="screen">
+  <div class="overlay">
+    <h1>Memory Quiz 💡</h1>
+    <div id="question" style="font-size:1.2em; color:#ba5c71; margin-bottom:1em"></div>
+    <div id="answers"></div>
+    <br>
+    <button onclick="showAnniversary()">⬅ Back</button>
   </div>
 </div>
 
 <script>
   const galleryItems = [
-    { img: "img1.jpg", caption: "Successful Suitcase Rummage" },
-    { img: "img2.jpg", caption: "Our Painting Date" },
-    { img: "img3.jpg", caption: "Wardrobe Swap Wooo" },
-    { img: "img4.jpg", caption: "Our Silly Moments" },
-    { img: "img5.jpg", caption: "Your Birthday" },
-    { img: "img6.jpg", caption: "Awww She's So Tall" },
-    { img: "img7.jpg", caption: "You + Me = 💕" },
-    { img: "img8.jpg", caption: "Where It Officially Started" }
+    { img: "https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FTxgPNk2KZKM9lts5EFTr%2Fimg_0322.jpg?alt=media&token=2db64a6c-3308-40e5-bb85-8bdfda6aff73", caption: "Successful Suitcase Rummage" },
+    { img: "https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FTxgPNk2KZKM9lts5EFTr%2Fimg_0993.jpg?alt=media&token=4cf78323-83c1-4b69-a830-24bda274896a", caption: "Our Painting Date" },
+    { img: "https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FTxgPNk2KZKM9lts5EFTr%2Fimg_9871.jpg?alt=media&token=ca02f570-3592-471b-9425-51045387e4f5", caption: "Wardrobe Swap Wooo" },
+    { img: "https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FPrWdn00KRqq1WqGt79IW%2Fimg_1238.jpg?alt=media&token=2b8fd76a-7be9-4e09-8a48-53aeeef8f330", caption: "Our Silly Moments" },
+    { img: "https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FPrWdn00KRqq1WqGt79IW%2Fimg_0872.jpg?alt=media&token=4c5fbaa4-a71a-499d-8f63-b1cecdbf23c3", caption: "Your Birthday" },
+    { img: "https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FPrWdn00KRqq1WqGt79IW%2Fimg_0508.jpg?alt=media&token=30dcaa2c-11b7-4170-8b81-111223ced5ab", caption: "Awww She's So Tall" },
+    { img: "https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FPrWdn00KRqq1WqGt79IW%2Fimg_0514.jpg?alt=media&token=59de08a2-e876-4c47-a829-fbe0801a6cd3", caption: "You + Me = 💕" },
+    { img: "https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FPrWdn00KRqq1WqGt79IW%2Fimg_8643.jpg?alt=media&token=a8e21764-3716-4303-bdb6-dc61c790cbb2", caption: "Where It Officially Started" }
   ];
 
+  const quizQuestions = [
+    { q: "Where did we go on our first official date?", options: ["Cafe 63", "Cinema", "Beach", "Art Gallery"], correct: 0 },
+    { q: "What colour did you wear on our 3rd month celebration?", options: ["Blue", "White", "Pink", "Black"], correct: 2 },
+    { q: "Which city do we dream of visiting together?", options: ["Tokyo", "Paris", "Melbourne", "Rome"], correct: 1 }
+  ];
+
+  let quizIndex = 0;
+
   function showAnniversary() {
-    document.getElementById('home').classList.remove('active');
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     document.getElementById('anniversary').classList.add('active');
     typeText();
     loadGallery();
+  }
+
+  function showStory() {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('story').classList.add('active');
+  }
+
+  function startQuiz() {
+    quizIndex = 0;
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('quiz').classList.add('active');
+    loadQuestion();
+  }
+
+  function loadGallery() {
+    const gallery = document.getElementById('gallery');
+    gallery.innerHTML = '';
+    galleryItems.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'photo-card';
+      card.innerHTML = `<img src="${item.img}" alt="Photo"><div class="caption">${item.caption}</div>`;
+      card.onclick = () => alert('This memory was a favourite for me 💖');
+      gallery.appendChild(card);
+    });
   }
 
   function typeText() {
@@ -214,14 +272,27 @@
     typeChar();
   }
 
-  function loadGallery() {
-    const gallery = document.getElementById('gallery');
-    gallery.innerHTML = '';
-    galleryItems.forEach(item => {
-      const card = document.createElement('div');
-      card.className = 'photo-card';
-      card.innerHTML = `<img src="${item.img}" alt="Photo"><div class="caption">${item.caption}</div>`;
-      gallery.appendChild(card);
+  function loadQuestion() {
+    const q = quizQuestions[quizIndex];
+    const questionBox = document.getElementById('question');
+    const answersBox = document.getElementById('answers');
+    questionBox.textContent = q.q;
+    answersBox.innerHTML = '';
+
+    q.options.forEach((opt, i) => {
+      const btn = document.createElement('button');
+      btn.textContent = opt;
+      btn.style = 'margin: 10px; padding: 10px 20px; border-radius: 8px; border: none; background-color: #f4a1ab; color: white; cursor: pointer;';
+      btn.onclick = () => {
+        if (i === q.correct) {
+          alert('Correct! 🥰');
+        } else {
+          alert('Oops! Try again 💡');
+        }
+        quizIndex = (quizIndex + 1) % quizQuestions.length;
+        loadQuestion();
+      };
+      answersBox.appendChild(btn);
     });
   }
 </script>
