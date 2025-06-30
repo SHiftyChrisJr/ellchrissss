@@ -3,178 +3,179 @@
 <head>
   <meta charset="UTF-8" />
   <title>For Elly 💌</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
-    html, body {
-      height: 100%;
-      font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
-      background: url('https://amsterdamian.com/wp-content/uploads/2021/03/tulips-7jpg_s.jpg') no-repeat center center fixed;
-      background-size: cover;
-      color: #fff;
-      scroll-behavior: smooth;
-      overflow-x: hidden;
-    }
+  html, body {
+    height: 100%;
+    font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+    background-color: #fdfaf5; /* ✨ Soft off-white */
+    color: #333;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
 
-    .screen {
-      display: none;
-      justify-content: center;
-      align-items: center;
-      height: 100%;
-      text-align: center;
-      padding: 2rem;
-      transition: all 0.8s ease-in-out;
-    }
+  .screen {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    text-align: center;
+    padding: 2rem;
+    transition: all 0.8s ease-in-out;
+  }
 
-    .active {
-      display: flex;
-      animation: fadeIn 1.2s ease-out;
-    }
+  .active {
+    display: flex;
+    animation: fadeIn 1.2s ease-out;
+  }
 
-    .intro h1 {
-      font-size: 3.2em;
-      margin-bottom: 1.2em;
-      color: #ffeef2;
-      animation: bounce 1.5s infinite alternate;
-      text-shadow: 2px 2px 6px rgba(0,0,0,0.4);
-    }
+  .intro h1 {
+    font-size: 3.2em;
+    margin-bottom: 1.2em;
+    color: #d94f78;
+    animation: bounce 1.5s infinite alternate;
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+  }
 
-    .intro button {
-      padding: 14px 30px;
-      font-size: 1.3em;
-      background: linear-gradient(to right, #ff85c1, #ffb6c1);
-      color: #fff;
-      border: none;
-      border-radius: 30px;
-      cursor: pointer;
-      box-shadow: 0 8px 20px rgba(255, 105, 180, 0.4);
-      animation: pulse 2s infinite;
-      transition: transform 0.2s ease;
-    }
+  .intro button {
+    padding: 14px 30px;
+    font-size: 1.3em;
+    background: linear-gradient(to right, #ff85c1, #ffb6c1);
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(255, 105, 180, 0.3);
+    animation: pulse 2s infinite;
+    transition: transform 0.2s ease;
+  }
 
-    .intro button:hover {
-      transform: scale(1.05);
-    }
+  .intro button:hover {
+    transform: scale(1.05);
+  }
 
-    .overlay {
-      background: rgb(255, 235, 255)
-      padding: 40px;
-      border-radius: 20px;
-      max-width: 1100px;
-      width: 95%;
-      max-height: 90vh;
-      overflow-y: auto;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.2);
-    }
+  .overlay {
+    background: rgba(255, 255, 255, 0.85); /* 🍦 soft white translucent */
+    backdrop-filter: blur(10px);
+    padding: 40px;
+    border-radius: 20px;
+    max-width: 1100px;
+    width: 95%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.1);
+  }
 
-    h1 {
-      font-size: 2.5em;
-      color: #c94e68;
-      margin-bottom: 0.8em;
-    }
+  h1 {
+    font-size: 2.5em;
+    color: #c94e68;
+    margin-bottom: 0.8em;
+  }
 
-    #typedText {
-      font-size: 1.3em;
-      color: #ba5c71;
-      line-height: 1.7;
-      white-space: pre-wrap;
-      min-height: 150px;
-      margin-bottom: 2em;
-    }
+  #typedText {
+    font-size: 1.3em;
+    color: #a14e5e;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    min-height: 150px;
+    margin-bottom: 2em;
+  }
 
-    .gallery {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 25px;
-    }
+  .gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+  }
 
+  .photo-card {
+    width: 260px;
+    background-color: #fff;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+  }
+
+  .photo-card img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+  }
+
+  .photo-card:hover {
+    transform: scale(1.05);
+  }
+
+  .caption {
+    background-color: #f8adc0;
+    padding: 12px;
+    color: #fff;
+    font-weight: 600;
+    font-size: 1em;
+  }
+
+  .heart {
+    position: fixed;
+    width: 22px;
+    height: 22px;
+    background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Heart_symbol_red.svg/2048px-Heart_symbol_red.svg.png') no-repeat center;
+    background-size: contain;
+    animation: floatUp 6s infinite ease-in;
+    opacity: 0.6;
+  }
+
+  @keyframes floatUp {
+    0% { transform: translateY(100vh) scale(0.5); opacity: 0.6; }
+    100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes bounce {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-8px); }
+  }
+
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 105, 180, 0.4); }
+    70% { box-shadow: 0 0 0 20px rgba(255, 105, 180, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 105, 180, 0); }
+  }
+
+  @media (max-width: 600px) {
+    h1 { font-size: 1.8em; }
+    #typedText { font-size: 1em; }
     .photo-card {
-      width: 260px;
-      background-color: #fff;
-      border-radius: 18px;
-      overflow: hidden;
-      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.2);
-      transition: transform 0.3s ease;
-      cursor: pointer;
+      width: 90%;
     }
-
     .photo-card img {
-      width: 100%;
-      height: 280px;
-      object-fit: cover;
+      height: 200px;
     }
+  }
 
-    .photo-card:hover {
-      transform: scale(1.05);
-    }
+  /* ✨ Soft stars overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: url('https://media.giphy.com/media/3o7aD2saalBwwftBIY/giphy.gif') repeat;
+    opacity: 0.06;
+    z-index: -1;
+    pointer-events: none;
+  }
+</style>
 
-    .caption {
-      background-color: #f4a1ab;
-      padding: 12px;
-      color: #fff;
-      font-weight: 600;
-      font-size: 1em;
-    }
-
-    .heart {
-      position: fixed;
-      width: 22px;
-      height: 22px;
-      background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Heart_symbol_red.svg/2048px-Heart_symbol_red.svg.png') no-repeat center;
-      background-size: contain;
-      animation: floatUp 6s infinite ease-in;
-      opacity: 0.6;
-    }
-
-    @keyframes floatUp {
-      0% { transform: translateY(100vh) scale(0.5); opacity: 0.6; }
-      100% { transform: translateY(-10vh) scale(1); opacity: 0; }
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes bounce {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-8px); }
-    }
-
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(255, 105, 180, 0.5); }
-      70% { box-shadow: 0 0 0 20px rgba(255, 105, 180, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(255, 105, 180, 0); }
-    }
-
-    @media (max-width: 600px) {
-      h1 { font-size: 1.8em; }
-      #typedText { font-size: 1em; }
-      .photo-card {
-        width: 90%;
-      }
-      .photo-card img {
-        height: 200px;
-      }
-    }
-
-    /* Twinkling stars */
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: url('https://media.giphy.com/media/3o7aD2saalBwwftBIY/giphy.gif') repeat;
-      opacity: 0.07;
-      z-index: -1;
-      pointer-events: none;
-    }
-  </style>
 </head>
 
 <body>
