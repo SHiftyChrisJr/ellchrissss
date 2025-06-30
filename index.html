@@ -208,8 +208,9 @@
 <!-- Anniversary Screen -->
 <div id="anniversary" class="screen">
   <div class="overlay">
-    <!-- Day Counter -->
-<p style="font-size: 1.2em; margin-bottom: 1em; color: #a84c63;" id="dayCounter"></p>
+<!-- Day Counter -->
+<p id="dayCounter" style="font-size: 1.2em; margin-bottom: 1em; color: #a84c63;" aria-live="polite"></p>
+
 
 
 
@@ -288,26 +289,15 @@ Here’s to every beautiful, silly, and perfectly imperfect moment we’ve share
 </script>
 <script>
   // 💕 Days Since Together (Set your start date here)
-  const startDate = new Date("2023-11-30"); // <-- Update to your actual start date
+  const startDate = new Date("2024-11-25"); // <-- Your relationship start date
   const today = new Date();
   const diffTime = today - startDate;
   const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-  document.getElementById('dayCounter').textContent = `We've been together for ${diffDays} days 💘`;
 
-
-
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const mins = Math.floor((diff / (1000 * 60)) % 60);
-    const secs = Math.floor((diff / 1000) % 60);
-
-    document.getElementById("countdownText").textContent =
-      `Countdown to our next celebration: ${days}d ${hours}h ${mins}m ${secs}s 🎈`;
-  }
-
-  setInterval(updateCountdown, 1000);
-  updateCountdown();
+  document.getElementById('dayCounter').textContent =
+    `We've been together for ${diffDays} days 💘`;
 </script>
+
 
 </body>
 </html>
