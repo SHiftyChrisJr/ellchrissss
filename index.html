@@ -61,8 +61,7 @@
     }
 
     .overlay {
-      background: rgba(255, 255, 255, 0.25);
-      backdrop-filter: blur(12px);
+      background: rgb(255, 235, 255)
       padding: 40px;
       border-radius: 20px;
       max-width: 1100px;
@@ -290,16 +289,7 @@ Here’s to every beautiful, silly, and perfectly imperfect moment we’ve share
   const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
   document.getElementById('dayCounter').textContent = `We've been together for ${diffDays} days 💘`;
 
-  // 🎂 Countdown Timer (Set your target date here)
-  const targetDate = new Date("2025-11-25"); // <-- Example: next anniversary or birthday
-  function updateCountdown() {
-    const now = new Date();
-    const diff = targetDate - now;
 
-    if (diff <= 0) {
-      document.getElementById("countdownText").textContent = "It's today! 🎉";
-      return;
-    }
 
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
     const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
