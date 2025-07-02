@@ -6,11 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     html, body {
       height: 100%;
@@ -20,144 +16,6 @@
       color: #fff;
       scroll-behavior: smooth;
       overflow-x: hidden;
-    }
-
-    .screen {
-      display: none;
-      justify-content: center;
-      align-items: center;
-      height: 100%;
-      text-align: center;
-      padding: 2rem;
-      transition: all 0.8s ease-in-out;
-    }
-
-    .active {
-      display: flex;
-      animation: fadeIn 1.2s ease-out;
-    }
-
-    .intro h1 {
-      font-size: 3.5em;
-      margin-bottom: 1.2em;
-      font-family: 'Pacifico', cursive;
-      color: #ffeef2;
-      animation: bounce 1.5s infinite alternate;
-      text-shadow: 2px 2px 6px rgba(0,0,0,0.4);
-    }
-
-    .intro button {
-      padding: 14px 36px;
-      font-size: 1.3em;
-      background: linear-gradient(to right, #ff85c1, #ffb6c1);
-      color: #fff;
-      border: none;
-      border-radius: 30px;
-      cursor: pointer;
-      box-shadow: 0 8px 20px rgba(255, 105, 180, 0.4);
-      animation: pulse 2s infinite;
-      transition: transform 0.2s ease;
-    }
-
-    .intro button:hover {
-      transform: scale(1.05);
-    }
-
-    .overlay {
-      background: rgba(255, 248, 248, 0.95);
-      padding: 40px;
-      border-radius: 20px;
-      max-width: 1100px;
-      width: 95%;
-      max-height: 90vh;
-      overflow-y: auto;
-      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.1);
-    }
-
-    h1 {
-      font-size: 2.5em;
-      color: #c94e68;
-      margin-bottom: 0.8em;
-    }
-
-    #typedText {
-      font-size: 1.3em;
-      color: #ba5c71;
-      line-height: 1.7;
-      white-space: pre-wrap;
-      min-height: 150px;
-      margin-bottom: 2em;
-    }
-
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 25px;
-      justify-content: center;
-    }
-
-    .photo-card {
-      background-color: #fff;
-      border-radius: 18px;
-      overflow: hidden;
-      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.2);
-      transition: transform 0.3s ease;
-      cursor: pointer;
-    }
-
-    .photo-card img {
-      width: 100%;
-      height: 280px;
-      object-fit: cover;
-    }
-
-    .photo-card:hover {
-      transform: scale(1.05);
-    }
-
-    .caption {
-      background-color: #f4a1ab;
-      padding: 12px;
-      color: #fff;
-      font-weight: 600;
-      font-size: 1em;
-      text-align: center;
-    }
-
-    .heart {
-      position: fixed;
-      width: 22px;
-      height: 22px;
-      background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Heart_symbol_red.svg/2048px-Heart_symbol_red.svg.png') no-repeat center;
-      background-size: contain;
-      animation: floatUp 6s infinite ease-in;
-      opacity: 0.6;
-    }
-
-    @keyframes floatUp {
-      0% { transform: translateY(100vh) scale(0.5); opacity: 0.6; }
-      100% { transform: translateY(-10vh) scale(1); opacity: 0; }
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes bounce {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-8px); }
-    }
-
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(255, 105, 180, 0.5); }
-      70% { box-shadow: 0 0 0 20px rgba(255, 105, 180, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(255, 105, 180, 0); }
-    }
-
-    @media (max-width: 600px) {
-      h1 { font-size: 1.8em; }
-      #typedText { font-size: 1em; }
     }
 
     body::before {
@@ -170,97 +28,270 @@
       z-index: -1;
       pointer-events: none;
     }
+
+    nav {
+      position: fixed;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255,248,248,0.9);
+      border-radius: 0 0 20px 20px;
+      padding: 0.5em 1em;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      z-index: 10;
+    }
+    nav ul { display: flex; gap: 1em; }
+    nav li {
+      list-style: none;
+      cursor: pointer;
+      font-weight: 500;
+      color: #c94e68;
+      transition: color 0.3s;
+    }
+    nav li:hover { color: #ba5c71; }
+
+    .screen {
+      display: none;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      text-align: center;
+      padding: 2rem;
+      transition: all 0.8s ease-in-out;
+    }
+    .active { display: flex; animation: fadeIn 1.2s ease-out; }
+
+    .intro h1 {
+      font-size: 3.5em;
+      margin-bottom: 1.2em;
+      font-family: 'Pacifico', cursive;
+      color: #ffeef2;
+      animation: bounce 1.5s infinite alternate;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+    }
+    .intro button {
+      padding: 14px 36px;
+      font-size: 1.3em;
+      background: linear-gradient(to right, #ff85c1, #ffb6c1);
+      color: #fff;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(255, 105, 180, 0.4);
+      animation: pulse 2s infinite;
+      transition: transform 0.2s ease;
+    }
+    .intro button:hover { transform: scale(1.05); }
+
+    .overlay {
+      background: rgba(255, 248, 248, 0.95);
+      padding: 40px;
+      border-radius: 20px;
+      max-width: 1100px;
+      width: 95%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+
+    h1 { font-size: 2.5em; color: #c94e68; margin-bottom: 0.8em; }
+    #typedText {
+      font-size: 1.3em; color: #ba5c71;
+      line-height: 1.7; white-space: pre-wrap;
+      min-height: 150px; margin-bottom: 2em;
+      text-align: left;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      justify-content: center;
+      margin-bottom: 2em;
+    }
+
+    .photo-card {
+      background-color: #fff;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease; cursor: pointer;
+    }
+    .photo-card img {
+      width: 100%; height: 280px; object-fit: cover;
+    }
+    .photo-card:hover { transform: scale(1.05); }
+    .caption {
+      background-color: #f4a1ab;
+      padding: 12px; color: #fff;
+      font-weight: 600; font-size: 1em;
+      text-align: center;
+    }
+
+    /* Ask-me section */
+    .question-section {
+      text-align: left;
+      max-width: 700px;
+      margin: 0 auto 2em;
+    }
+    .question-section h2 {
+      font-family: 'Pacifico', cursive;
+      color: #c94e68;
+      margin-bottom: 0.5em;
+    }
+    .question-section textarea {
+      width: 100%;
+      border-radius: 12px;
+      border: 2px solid #ffb6c1;
+      padding: 12px;
+      font-size: 1em;
+      resize: vertical;
+      outline: none;
+    }
+    .question-section textarea:focus {
+      border-color: #ff85c1;
+    }
+    .question-section button {
+      margin-top: 0.5em;
+      padding: 10px 24px;
+      font-size: 1em;
+      background-color: #ff69b4;
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .question-section button:hover {
+      background-color: #ff85c1;
+    }
+    #questionOutput {
+      margin-top: 1em;
+      background: #ffeef2;
+      color: #c94e68;
+      padding: 12px;
+      border-radius: 12px;
+      font-style: italic;
+    }
+
+    /* Animations */
+    .heart {
+      position: fixed;
+      width: 22px; height: 22px;
+      background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Heart_symbol_red.svg/2048px-Heart_symbol_red.svg.png') no-repeat center;
+      background-size: contain;
+      animation: floatUp 6s infinite ease-in;
+      opacity: 0.6;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) scale(0.5); opacity: 0.6; }
+      100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes bounce {
+      0% { transform: translateY(0); } 100% { transform: translateY(-8px); }
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(255, 105, 180, 0.5); }
+      70% { box-shadow: 0 0 0 20px rgba(255, 105, 180, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 105, 180, 0); }
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 1.8em; }
+      #typedText { font-size: 1em; }
+    }
   </style>
 </head>
 <body>
-<script>
-  setInterval(() => {
-    const heart = document.createElement("div");
-    heart.className = "heart";
-    heart.style.left = Math.random() * 100 + "vw";
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 6000);
-  }, 800);
-</script>
-<audio autoplay loop muted>
-  <source src="https://cdn.pixabay.com/download/audio/2023/03/26/audio_2f93402b08.mp3?filename=romantic-music-144109.mp3" type="audio/mp3">
-</audio>
-<div id="home" class="screen intro active">
-  <div>
-    <h1>For Elly 💌</h1>
-    <button onclick="showAnniversary()">Open</button>
-  </div>
-</div>
-<div id="anniversary" class="screen">
-  <div class="overlay">
-    <p id="dayCounter" style="font-size: 1.2em; margin-bottom: 1em; color: #a84c63;" aria-live="polite"></p>
-    <h1>Happy 7 Months, Elly 🌸</h1>
-    <div id="typedText"></div>
-    <div class="gallery">
-      <div class="gallery"> <!-- Photo Cards --> <!-- Copy-paste from your existing photo cards, unchanged --> <!-- Just updating layout & transitions -->
-        <div class="photo-card"> <img src="https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FTxgPNk2KZKM9lts5EFTr%2Fimg_0322.jpg?alt=media&token=2db64a6c-3308-40e5-bb85-8bdfda6aff73" alt="Photo 1"> 
-        <div class="caption">Successful Suitcase Rummage</div> 
-        </div>
-        <div class="photo-card"> <img src="https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FTxgPNk2KZKM9lts5EFTr%2Fimg_0993.jpg?alt=media&token=4cf78323-83c1-4b69-a830-24bda274896a" alt="Photo 2">
-          <div class="caption">Our Painting Date</div>
-        </div>
-        <div class="photo-card"> <img src="https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FTxgPNk2KZKM9lts5EFTr%2Fimg_9871.jpg?alt=media&token=ca02f570-3592-471b-9425-51045387e4f5" alt="Photo 3"> 
-          <div class="caption">Wardrobe Swap Wooo</div> 
-        </div> 
-        <div class="photo-card"> <img src="https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FPrWdn00KRqq1WqGt79IW%2Fimg_1238.jpg?alt=media&token=2b8fd76a-7be9-4e09-8a48-53aeeef8f330" alt="Photo 4"> 
-          <div class="caption">Our Silly Moments</div> 
-        </div> 
-        <div class="photo-card"> <img src="https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FPrWdn00KRqq1WqGt79IW%2Fimg_0872.jpg?alt=media&token=4c5fbaa4-a71a-499d-8f63-b1cecdbf23c3" alt="Photo 5">
-          <div class="caption">Your Birthday</div>
-        </div> 
-        <div class="photo-card"> <img src="https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FPrWdn00KRqq1WqGt79IW%2Fimg_0508.jpg?alt=media&token=30dcaa2c-11b7-4170-8b81-111223ced5ab" alt="Photo 6"> 
-          <div class="caption">Awww She's So Tall</div>
-        </div>
-        <div class="photo-card"> <img src="https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FPrWdn00KRqq1WqGt79IW%2Fimg_0514.jpg?alt=media&token=59de08a2-e876-4c47-a829-fbe0801a6cd3" alt="Photo 7">
-          <div class="caption">You + Me = 💕</div> 
-        </div> 
-        <div class="photo-card"> <img src="https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FPrWdn00KRqq1WqGt79IW%2Fimg_8643.jpg?alt=media&token=a8e21764-3716-4303-bdb6-dc61c790cbb2" alt="Photo 8"> 
-          <div class="caption">Where It Officially Started</div>
-        </div> 
-      </div> 
-    </div> 
-  </div>
-      <!-- Photo cards go here -->
+
+  <!-- floating hearts -->
+  <script>
+    setInterval(() => {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.style.left = Math.random() * 100 + "vw";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
+    }, 800);
+  </script>
+
+  <!-- optional music -->
+  <audio autoplay loop muted>
+    <source src="https://cdn.pixabay.com/download/audio/2023/03/26/audio_2f93402b08.mp3?filename=romantic-music-144109.mp3" type="audio/mp3">
+  </audio>
+
+  <!-- navigation -->
+  <nav>
+    <ul>
+      <li onclick="showPage('home')">Home</li>
+      <li onclick="showPage('anniversary')">Letter</li>
+    </ul>
+  </nav>
+
+  <!-- Home -->
+  <div id="home" class="screen intro active">
+    <div>
+      <h1>For Elly 💌</h1>
+      <button onclick="showPage('anniversary')">Open</button>
     </div>
   </div>
-</div>
-<script>
-  function showAnniversary() {
-    document.getElementById('home').classList.remove('active');
-    document.getElementById('anniversary').classList.add('active');
-    typeText();
-  }
-  function typeText() {
-    const text = `I wish I could be right beside you today, but until then.
 
-Thank you for being my sunshine and softness through it all.
+  <!-- Anniversary & Q&A -->
+  <div id="anniversary" class="screen">
+    <div class="overlay">
+      <h1>Happy 7 Months, Elly 🌸</h1>
+      <div id="typedText"></div>
 
-I might not always say it the right way, but I hope you always feel how deeply I love you.
+      <div class="gallery">
+        <!-- your photo cards here... -->
+      </div>
 
-Here’s to every beautiful, silly, and perfectly imperfect moment we’ve shared. I can’t wait for the rest. 💖`;
-    let i = 0;
-    const target = document.getElementById('typedText');
-    target.textContent = '';
-    function typeChar() {
-      if (i < text.length) {
-        target.textContent += text.charAt(i);
-        i++;
-        setTimeout(typeChar, 35);
-      }
+      <!-- New Question Section -->
+      <div class="question-section">
+        <h2>Ask Me Anything 💬</h2>
+        <textarea id="questionInput" rows="3" placeholder="Type your question here..."></textarea>
+        <button onclick="submitQuestion()">Ask</button>
+        <div id="questionOutput"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function showPage(id) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      if (id === 'anniversary') startTyping();
     }
-    typeChar();
-  }
-  const startDate = new Date("2024-11-25");
-  const today = new Date();
-  const diffTime = today - startDate;
-  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-  document.getElementById('dayCounter').textContent =
-    `We've been together for ${diffDays} days 💘`;
-</script>
+
+    // typing effect
+    function startTyping() {
+      const text = `I wish I could be right beside you today, but until then.\n\n` +
+        `Thank you for being my sunshine and softness through it all.\n\n` +
+        `I might not always say it the right way, but I hope you always feel how deeply I love you.\n\n` +
+        `Here’s to every beautiful, silly, and perfectly imperfect moment we’ve shared. 💖`;
+      let i = 0;
+      const t = document.getElementById('typedText');
+      t.textContent = '';
+      (function typeChar() {
+        if (i < text.length) {
+          t.textContent += text[i++];
+          setTimeout(typeChar, 35);
+        }
+      })();
+    }
+
+    // question handler
+    function submitQuestion() {
+      const q = document.getElementById('questionInput').value.trim();
+      if (!q) return;
+      document.getElementById('questionOutput').textContent = `You asked: “${q}” — Can’t wait to answer you in person! 💕`;
+      document.getElementById('questionInput').value = '';
+    }
+  </script>
 </body>
 </html>
