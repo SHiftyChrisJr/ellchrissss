@@ -1,441 +1,206 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>For Elly 💌</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html, body {
-      height: 100%;
-      font-family: 'Poppins', sans-serif;
-      background: url('https://amsterdamian.com/wp-content/uploads/2021/03/tulips-7jpg_s.jpg') no-repeat center center fixed;
-      background-size: cover;
-      color: #fff;
-      scroll-behavior: smooth;
-      overflow-x: hidden;
-    }
-
-    .screen {
-      display: none;
-      justify-content: center;
-      align-items: center;
-      height: 100%;
-      text-align: center;
-      padding: 2rem;
-      transition: all 0.8s ease-in-out;
-    }
-
-    .active {
-      display: flex;
-      animation: fadeIn 1.2s ease-out;
-    }
-
-    .intro h1 {
-      font-size: 3.5em;
-      margin-bottom: 1.2em;
-      font-family: 'Pacifico', cursive;
-      color: #ffeef2;
-      animation: bounce 1.5s infinite alternate;
-      text-shadow: 2px 2px 6px rgba(0,0,0,0.4);
-    }
-
-    .intro button {
-      padding: 14px 36px;
-      font-size: 1.3em;
-      background: linear-gradient(to right, #ff85c1, #ffb6c1);
-      color: #fff;
-      border: none;
-      border-radius: 30px;
-      cursor: pointer;
-      box-shadow: 0 8px 20px rgba(255, 105, 180, 0.4);
-      animation: pulse 2s infinite;
-      transition: transform 0.2s ease;
-    }
-
-    .intro button:hover {
-      transform: scale(1.05);
-    }
-
-    .overlay {
-      background: rgba(255, 248, 248, 0.95);
-      padding: 40px;
-      border-radius: 20px;
-      max-width: 1100px;
-      width: 95%;
-      max-height: 90vh;
-      overflow-y: auto;
-      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.1);
-    }
-
-    h1 {
-      font-size: 2.5em;
-      color: #c94e68;
-      margin-bottom: 0.8em;
-    }
-
-    #typedText {
-      font-size: 1.3em;
-      color: #ba5c71;
-      line-height: 1.7;
-      white-space: pre-wrap;
-      min-height: 150px;
-      margin-bottom: 2em;
-    }
-
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 25px;
-      justify-content: center;
-    }
-
-    .photo-card {
-      background-color: #fff;
-      border-radius: 18px;
-      overflow: hidden;
-      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.2);
-      transition: transform 0.3s ease;
-      cursor: pointer;
-    }
-
-    .photo-card img {
-      width: 100%;
-      height: 280px;
-      object-fit: cover;
-    }
-
-    .photo-card:hover {
-      transform: scale(1.05);
-    }
-
-    .caption {
-      background-color: #f4a1ab;
-      padding: 12px;
-      color: #fff;
-      font-weight: 600;
-      font-size: 1em;
-      text-align: center;
-    }
-
-    .heart {
-      position: fixed;
-      width: 22px;
-      height: 22px;
-      background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Heart_symbol_red.svg/2048px-Heart_symbol_red.svg.png') no-repeat center;
-      background-size: contain;
-      animation: floatUp 6s infinite ease-in;
-      opacity: 0.6;
-    }
-
-    @keyframes floatUp {
-      0% { transform: translateY(100vh) scale(0.5); opacity: 0.6; }
-      100% { transform: translateY(-10vh) scale(1); opacity: 0; }
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes bounce {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-8px); }
-    }
-
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(255, 105, 180, 0.5); }
-      70% { box-shadow: 0 0 0 20px rgba(255, 105, 180, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(255, 105, 180, 0); }
-    }
-
-    @media (max-width: 600px) {
-      h1 { font-size: 1.8em; }
-      #typedText { font-size: 1em; }
-    }
-
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: url('https://media.giphy.com/media/3o7aD2saalBwwftBIY/giphy.gif') repeat;
-      opacity: 0.07;
-      z-index: -1;
-      pointer-events: none;
-    }
-        :root {
-      --pink: #ff69b4;
+    :root {
       --pink-light: #ffb6c1;
+      --pink: #ff69b4;
       --pink-dark: #c94e68;
-      --bg: #fff;
-      --text: #333;
+      --bg-light: rgba(255, 248, 248, 0.95);
+      --bg-overlay: rgba(255,255,255,0.9);
+      --text-dark: #333;
       --radius: 12px;
       --transition: 0.3s ease;
     }
-
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Poppins', sans-serif;
-       background: url('https://amsterdamian.com/wp-content/uploads/2021/03/tulips-7jpg_s.jpg') no-repeat center center fixed;
-    color: var(--text);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-      text-align: center;
+    html, body {
+      height: 100%; font-family: 'Poppins', sans-serif;
+      background: url('https://amsterdamian.com/wp-content/uploads/2021/03/tulips-7jpg_s.jpg') no-repeat center center fixed;
+      background-size: cover; scroll-behavior: smooth; overflow-x: hidden;
     }
-
-    .container {
-      background: var(--bg);
-      border-radius: var(--radius);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      padding: 2rem;
-      max-width: 500px;
-      width: 100%;
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background: url('https://media.giphy.com/media/3o7aD2saalBwwftBIY/giphy.gif') repeat;
+      opacity: 0.07; pointer-events: none;
+      z-index: -1;
     }
-
-    h1 {
-      font-family: 'Pacifico', cursive;
-      color: var(--pink-dark);
-      margin-bottom: 1rem;
+    header {
+      position: fixed; top: 0; width: 100%;
+      background: var(--bg-overlay); backdrop-filter: blur(10px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1); z-index:1000;
     }
-
-    /* Ask Me Anything */
-    .question-section,
-    .quiz-section {
-      margin-top: 1.5rem;
-      text-align: left;
+    nav {
+      max-width: 1100px; margin: auto; display: flex;
+      justify-content: center; gap: 2rem; padding: 0.5rem;
+    }
+    nav a {
+      font-weight: 500; color: var(--pink-dark); text-decoration: none;
+      padding: 0.5rem; border-radius: var(--radius);
+      transition: background var(--transition), color var(--transition);
+    }
+    nav a.active, nav a:hover {
+      background: var(--pink-light); color: #fff;
+    }
+    .screen {
+      display: none; padding: 6rem 1rem 1rem; justify-content: center;
+      align-items: flex-start; text-align: center;
+    }
+    .screen.active { display: flex; }
+    h1 { font-size: 2.5em; color: var(--pink-dark); margin-bottom: 0.5em; }
+    /* Home */
+    .intro h1 {
+      font-family: 'Pacifico', cursive; color: #ffeef2;
+      font-size: 3.5em; animation: bounce 1.5s infinite alternate;
+      text-shadow:2px 2px 6px rgba(0,0,0,0.4); margin-bottom:1em;
+    }
+    .intro button {
+      padding:14px 36px; font-size:1.3em;
+      background: linear-gradient(to right, var(--pink-light), var(--pink));
+      color:#fff; border:none; border-radius:30px; cursor:pointer;
+      box-shadow:0 8px 20px rgba(255,105,180,0.4);
+      animation:pulse 2s infinite; transition: transform 0.2s;
+    }
+    .intro button:hover { transform: scale(1.05); }
+    /* Anniversary & Questions */
+    .overlay {
+      background: var(--bg-light); padding:2rem;
+      border-radius:20px; max-width:800px; width:95%;
+      max-height:85vh; overflow-y:auto;
+      box-shadow:0 8px 40px rgba(0,0,0,0.1);
+      margin: auto;
+    }
+    #dayCounter { font-size:1.1em; color:var(--pink-dark); margin-bottom:1rem; }
+    #typedText {
+      font-size:1.2em; color:var(--pink-dark);
+      line-height:1.7; white-space:pre-wrap;
+      opacity:0; transition: opacity 1s ease;
+      min-height:150px; margin-bottom:2rem;
+    }
+    /* Gallery */
+    .gallery { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1rem; margin-bottom:2rem; }
+    .photo-card { position:relative; border-radius:var(--radius);
+      overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,0.2);
+      transition: transform var(--transition); cursor:pointer;
+    }
+    .photo-card img { width:100%; height:200px; object-fit:cover; display:block; }
+    .photo-card:hover { transform:scale(1.03); }
+    .photo-card .caption {
+      position:absolute; bottom:0; width:100%; background:var(--pink-light);
+      color:#fff; padding:0.5rem; font-size:0.9em;
+    }
+    /* Q&A and Quiz */
+    .question-section, .quiz-section {
+      text-align:left; margin-bottom:2rem;
     }
     .question-section textarea {
-      width: 100%;
-      padding: 0.8rem;
-      border: 2px solid var(--pink);
-      border-radius: var(--radius);
-      font-size: 1rem;
-      resize: vertical;
-      transition: border var(--transition);
+      width:100%; padding:0.8rem; border:2px solid var(--pink);
+      border-radius:var(--radius); resize:vertical; transition:border var(--transition);
     }
-    .question-section textarea:focus {
-      border-color: var(--pink-dark);
-    }
-    .question-section button {
-      margin-top: 0.5rem;
-      padding: 0.5rem 1.5rem;
-      background: var(--pink);
-      color: #fff;
-      border: none;
-      border-radius: var(--radius);
-      cursor: pointer;
-      transition: background var(--transition);
-    }
-    .question-section button:hover {
-      background: var(--pink-dark);
-    }
-    #questionOutput {
-      margin-top: 1rem;
-      font-style: italic;
-      color: var(--pink-dark);
-    }
-
-    /* Quiz */
-    .quiz-section form {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-      text-align: left;
-    }
-    .quiz-section label {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 1rem;
-      cursor: pointer;
-    }
-    .quiz-section input[type="radio"] {
-      accent-color: var(--pink);
-    }
+    .question-section textarea:focus { border-color:var(--pink-dark); }
+    .question-section button,
     .quiz-section button {
-      align-self: flex-start;
-      margin-top: 0.5rem;
-      padding: 0.5rem 1.5rem;
-      background: var(--pink);
-      color: #fff;
-      border: none;
-      border-radius: var(--radius);
-      cursor: pointer;
+      margin-top:0.5rem; padding:0.6rem 1.2rem;
+      background:var(--pink); color:#fff; border:none;
+      border-radius:var(--radius); cursor:pointer;
       transition: background var(--transition);
     }
-    .quiz-section button:hover {
-      background: var(--pink-dark);
-    }
-    #quizOutput {
-      margin-top: 1rem;
-      font-weight: 600;
-    }
-    .correct { color: green; }
-    .incorrect { color: red; }
-
+    .question-section button:hover,
+    .quiz-section button:hover { background:var(--pink-dark); }
+    #questionOutput { margin-top:1rem; font-style:italic; color:var(--pink-dark); }
+    .quiz-section form { display:flex; flex-direction:column; gap:0.5rem; }
+    .quiz-section label { display:flex; align-items:center; gap:0.5rem; color:var(--text-dark); }
+    .quiz-section input[type="radio"] { accent-color:var(--pink); }
+    #quizOutput { margin-top:1rem; font-weight:600; }
+    .correct { color:green; } .incorrect { color:red; }
+    /* Animations */
+    @keyframes fadeIn { from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);} }
+    @keyframes bounce { 0%{transform:translateY(0);}100%{transform:translateY(-8px);} }
+    @keyframes pulse { 0%{box-shadow:0 0 0 0 rgba(255,105,180,0.5);}70%{box-shadow:0 0 0 15px rgba(255,105,180,0);}100%{box-shadow:0;} }
   </style>
 </head>
 <body>
-<script>
-  setInterval(() => {
-    const heart = document.createElement("div");
-    heart.className = "heart";
-    heart.style.left = Math.random() * 100 + "vw";
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 6000);
-  }, 800);
-</script>
-<audio autoplay loop muted>
-  <source src="https://cdn.pixabay.com/download/audio/2023/03/26/audio_2f93402b08.mp3?filename=romantic-music-144109.mp3" type="audio/mp3">
-</audio>
-<div id="home" class="screen intro active">
-  <div>
-    <h1>For Elly 💌</h1>
-    <button onclick="showAnniversary()">Open</button>
-  </div>
-</div>
-<div id="anniversary" class="screen">
-  <div class="overlay">
-    <p id="dayCounter" style="font-size: 1.2em; margin-bottom: 1em; color: #a84c63;" aria-live="polite"></p>
-    <h1>Happy 7 Months, Elly 🌸</h1>
-    <div id="typedText"></div>
-    <div class="gallery">
-      <div class="gallery"> <!-- Photo Cards --> <!-- Copy-paste from your existing photo cards, unchanged --> <!-- Just updating layout & transitions -->
-        <div class="photo-card"> <img src="https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FTxgPNk2KZKM9lts5EFTr%2Fimg_0322.jpg?alt=media&token=2db64a6c-3308-40e5-bb85-8bdfda6aff73" alt="Photo 1"> 
-        <div class="caption">Successful Suitcase Rummage</div> 
-        </div>
-        <div class="photo-card"> <img src="https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FTxgPNk2KZKM9lts5EFTr%2Fimg_0993.jpg?alt=media&token=4cf78323-83c1-4b69-a830-24bda274896a" alt="Photo 2">
-          <div class="caption">Our Painting Date</div>
-        </div>
-        <div class="photo-card"> <img src="https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FTxgPNk2KZKM9lts5EFTr%2Fimg_9871.jpg?alt=media&token=ca02f570-3592-471b-9425-51045387e4f5" alt="Photo 3"> 
-          <div class="caption">Wardrobe Swap Wooo</div> 
-        </div> 
-        <div class="photo-card"> <img src="https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FPrWdn00KRqq1WqGt79IW%2Fimg_1238.jpg?alt=media&token=2b8fd76a-7be9-4e09-8a48-53aeeef8f330" alt="Photo 4"> 
-          <div class="caption">Our Silly Moments</div> 
-        </div> 
-        <div class="photo-card"> <img src="https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FPrWdn00KRqq1WqGt79IW%2Fimg_0872.jpg?alt=media&token=4c5fbaa4-a71a-499d-8f63-b1cecdbf23c3" alt="Photo 5">
-          <div class="caption">Your Birthday</div>
-        </div> 
-        <div class="photo-card"> <img src="https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FPrWdn00KRqq1WqGt79IW%2Fimg_0508.jpg?alt=media&token=30dcaa2c-11b7-4170-8b81-111223ced5ab" alt="Photo 6"> 
-          <div class="caption">Awww She's So Tall</div>
-        </div>
-        <div class="photo-card"> <img src="https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FPrWdn00KRqq1WqGt79IW%2Fimg_0514.jpg?alt=media&token=59de08a2-e876-4c47-a829-fbe0801a6cd3" alt="Photo 7">
-          <div class="caption">You + Me = 💕</div> 
-        </div> 
-        <div class="photo-card"> <img src="https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FPrWdn00KRqq1WqGt79IW%2Fimg_8643.jpg?alt=media&token=a8e21764-3716-4303-bdb6-dc61c790cbb2" alt="Photo 8"> 
-          <div class="caption">Where It Officially Started</div>
-        </div> 
-      </div> 
-    </div> 
-  </div>
-      <!-- Photo cards go here -->
-    </div>
-  </div>
-</div>
-<script>
-  function showAnniversary() {
-    document.getElementById('home').classList.remove('active');
-    document.getElementById('anniversary').classList.add('active');
-    typeText();
-  }
-  function typeText() {
-    const text = `I wish I could be right beside you today, but until then.
-
-Thank you for being my sunshine and softness through it all.
-
-I might not always say it the right way, but I hope you always feel how deeply I love you.
-
-Here’s to every beautiful, silly, and perfectly imperfect moment we’ve shared. I can’t wait for the rest. 💖`;
-    let i = 0;
-    const target = document.getElementById('typedText');
-    target.textContent = '';
-    function typeChar() {
-      if (i < text.length) {
-        target.textContent += text.charAt(i);
-        i++;
-        setTimeout(typeChar, 35);
-      }
-    }
-    typeChar();
-  }
-  const startDate = new Date("2024-11-25");
-  const today = new Date();
-  const diffTime = today - startDate;
-  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-  document.getElementById('dayCounter').textContent =
-    `We've been together for ${diffDays} days 💘`;
-  <head>
-  <meta charset="UTF-8" />
-  <title>Relationship Questions 💖</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Ask Me Anything and Quick Quiz about our relationship." />
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet" />
-
-    
-
-
-  <div class="container">
-    <h1>Let's Chat 💬</h1>
-
-    <!-- Ask Me Anything -->
-    <div class="question-section">
-      <h2>Ask Me Anything</h2>
-      <textarea id="questionInput" rows="4" placeholder="What's on your mind?..."></textarea>
-      <button onclick="submitQuestion()">Send</button>
-      <div id="questionOutput"></div>
-    </div>
-
-    <!-- Relationship Quiz -->
-    <div class="quiz-section">
-      <h2>Quick Relationship Quiz</h2>
-      <form id="quizForm">
-        <p>Where did we first meet?</p>
-        <label><input type="radio" name="quiz" value="A"> Mall</label>
-        <label><input type="radio" name="quiz" value="B"> Party</label>
-        <label><input type="radio" name="quiz" value="C"> Online</label>
-        <button type="button" onclick="submitQuiz()">Check Answer</button>
-      </form>
-      <div id="quizOutput"></div>
-    </div>
-  </div>
-
+  <!-- Floating hearts -->
   <script>
-    function submitQuestion() {
-      const q = document.getElementById('questionInput').value.trim();
-      if (!q) return;
-      document.getElementById('questionOutput').textContent =
-        `You asked: “${q}” — I'll share my thoughts soon! 💕`;
-      document.getElementById('questionInput').value = '';
-    }
-
-    function submitQuiz() {
-      const choice = document.querySelector('input[name="quiz"]:checked');
-      const output = document.getElementById('quizOutput');
-      if (!choice) {
-        output.textContent = 'Please select an option.';
-        output.className = '';
-                return;
-      }
-      if (choice.value === 'B') {
-        output.textContent = 'Correct! 🎉 We first met at a party.';
-        output.className = 'correct';
-      } else {
-        output.textContent = 'Not quite, try again! 😉';
-        output.className = 'incorrect';
-      }
-    }
-  
-</script>
+    setInterval(() => {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.style.left = Math.random()*100 + 'vw';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
+    }, 800);
+  </script>
+  <!-- Background music -->
+  <audio autoplay loop muted>
+    <source src="https://cdn.pixabay.com/download/audio/2023/03/26/audio_2f93402b08.mp3?filename=romantic-music-144109.mp3" type="audio/mp3">
+  </audio>
+  <!-- Navigation -->
+  <header>
+    <nav>
+      <a href="#home" class="active" onclick="navigate(event,'home')">Home</a>
+      <a href="#anniversary" onclick="navigate(event,'anniversary')">Letter</a>
+      <a href="#questions" onclick="navigate(event,'questions')">Questions</a>
+    </nav>
+  </header>
+  <main>
+    <!-- Home -->
+    <section id="home" class="screen active">
+      <div class="intro">
+        <h1>For Elly 💌</h1>
+        <button onclick="navigate(null,'anniversary')">Open</button>
+      </div>
+    </section>
+    <!-- Anniversary -->
+    <section id="anniversary" class="screen">
+      <div class="overlay">
+        <div id="dayCounter" aria-live="polite"></div>
+        <h1>Happy 7 Months, Elly 🌸</h1>
+        <div id="typedText"></div>
+        <div class="gallery">
+          <!-- Photo cards -->
+          <div class="photo-card"><img src="https://firebasestorage.googleapis.com/.../img_0322.jpg" alt="Successful Suitcase Rummage"><div class="caption">Successful Suitcase Rummage</div></div>
+          <!-- Repeat your other photo cards here -->
+        </div>
+      </div>
+    </section>
+    <!-- Questions -->
+    <section id="questions" class="screen">
+      <div class="overlay">
+        <div class="question-section">
+          <h2>Ask Me Anything 💬</h2>
+          <textarea id="questionInput" rows="4" placeholder="What's on your mind?..."></textarea>
+          <button onclick="submitQuestion()">Send</button>
+          <div id="questionOutput"></div>
+        </div>
+        <div class="quiz-section">
+          <h2>Quick Relationship Quiz 📖</h2>
+          <form id="quizForm">
+            <p>Where did we first meet?</p>
+            <label><input type="radio" name="quiz" value="A"> Mall</label>
+            <label><input type="radio" name="quiz" value="B"> Party</label>
+            <label><input type="radio" name="quiz" value="C"> Online</label>
+            <button type="button" onclick="submitQuiz()">Check Answer</button>
+          </form>
+          <div id="quizOutput"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script>
+    // Navigation
+    function navigate(e,id){ if(e) e.preventDefault(); document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); document.querySelectorAll('nav a').forEach(a=>a.classList.remove('active')); document.querySelector(`nav a[href="#${id}"]`).classList.add('active'); if(id==='anniversary') startTyping(); }
+    // Typing effect
+    function startTyping(){ const txt=`I wish I could be right beside you today, but until then.\n\nThank you for being my sunshine and softness through it all.\n\nI might not always say it the right way, but I hope you always feel how deeply I love you.\n\nHere’s to every beautiful, silly, and perfectly imperfect moment we’ve shared. 💖`; let i=0,tgt=document.getElementById('typedText'); tgt.textContent=''; tgt.style.opacity=0; (function type(){ if(i<txt.length){ tgt.textContent+=txt.charAt(i++); setTimeout(type,35);} else tgt.style.opacity=1; })(); }
+    // Day counter
+    (function(){ const start=new Date('2024-11-25'),diff=Math.floor((new Date()-start)/(1000*60*60*24)); document.getElementById('dayCounter').textContent=`We've been together for ${diff} days 💘`; })();
+    // Q&A
+    function submitQuestion(){ const q=document.getElementById('questionInput').value.trim(); if(!q) return; document.getElementById('questionOutput').textContent=`You asked: “${q}” — I'll share my thoughts soon! 💕`; document.getElementById('questionInput').value=''; }
+    // Quiz
+    function submitQuiz(){ const c=document.querySelector('input[name="quiz"]:checked'),out=document.getElementById('quizOutput'); if(!c){ out.textContent='Please select an option.'; out.className=''; return;} if(c.value==='B'){ out.textContent='Correct! 🎉 We first met at a party.'; out.className='correct'; } else { out.textContent='Not quite, try again! 😉'; out.className='incorrect'; }}
+  </script>
 </body>
 </html>
