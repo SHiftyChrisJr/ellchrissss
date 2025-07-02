@@ -115,7 +115,6 @@
       justify-content: center;
       margin-bottom: 2em;
     }
-
     .photo-card {
       background-color: #fff;
       border-radius: 18px;
@@ -135,12 +134,15 @@
       text-align: center;
     }
 
-    .question-section {
+    /* Ask-me section */
+    .question-section,
+    .quiz-section {
       text-align: left;
       max-width: 700px;
       margin: 0 auto 2em;
     }
-    .question-section h2 {
+    .question-section h2,
+    .quiz-section h2 {
       font-family: 'Pacifico', cursive;
       color: #c94e68;
       margin-bottom: 0.5em;
@@ -179,6 +181,45 @@
       border-radius: 12px;
       font-style: italic;
     }
+
+    /* Quiz styles */
+    .quiz-section form {
+      border: 2px solid #ffb6c1;
+      border-radius: 12px;
+      padding: 1em;
+      background: #fff;
+    }
+    .quiz-section label {
+      display: block;
+      margin-bottom: 0.5em;
+      color: #333;
+      cursor: pointer;
+    }
+    .quiz-section input[type="radio"] {
+      margin-right: 0.5em;
+    }
+    .quiz-section button {
+      margin-top: 1em;
+      padding: 10px 24px;
+      font-size: 1em;
+      background-color: #ff69b4;
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .quiz-section button:hover {
+      background-color: #ff85c1;
+    }
+    #quizOutput {
+      margin-top: 1em;
+      padding: 12px;
+      border-radius: 12px;
+      font-weight: 500;
+    }
+    .correct { color: green; }
+    .incorrect { color: red; }
 
     .heart {
       position: fixed;
@@ -258,15 +299,30 @@
           <img src="https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FTxgPNk2KZKM9lts5EFTr%2Fimg_0322.jpg?alt=media&token=2db64a6c-3308-40e5-bb85-8bdfda6aff73" alt="Photo 1">
           <div class="caption">Successful Suitcase Rummage</div>
         </div>
-        <!-- … repeat for each of your eight photos … -->
+        <!-- … repeat for each photo … -->
       </div>
 
+      <!-- Ask-me section -->
       <div class="question-section">
         <h2>Ask Me Anything 💬</h2>
         <textarea id="questionInput" rows="3" placeholder="Type your question here…"></textarea>
         <button onclick="submitQuestion()">Ask</button>
         <div id="questionOutput"></div>
       </div>
+
+      <!-- Multiple-Choice Quiz -->
+      <div class="quiz-section">
+        <h2>Quick Quiz 📖</h2>
+        <form id="quizForm">
+          <p>Which day did we start dating?</p>
+          <label><input type="radio" name="quiz" value="A"> A) October 25, 2024</label>
+          <label><input type="radio" name="quiz" value="B"> B) November 25, 2024</label>
+          <label><input type="radio" name="quiz" value="C"> C) December 25, 2024</label>
+          <button type="button" onclick="submitQuiz()">Submit</button>
+        </form>
+        <div id="quizOutput"></div>
+      </div>
+
     </div>
   </div>
 
@@ -313,6 +369,24 @@
       document.getElementById('questionOutput').textContent =
         `You asked: “${q}” — Can’t wait to answer you in person! 💕`;
       document.getElementById('questionInput').value = '';
+    }
+
+    // Quiz handler
+    function submitQuiz() {
+      const choice = document.querySelector('input[name="quiz"]:checked');
+      const out = document.getElementById('quizOutput');
+      if (!choice) {
+        out.textContent = "Please select an answer.";
+        out.className = "";
+        return;
+      }
+      if (choice.value === "B") {
+        out.textContent = "Correct! 🎉 November 25, 2024 is our special day.";
+        out.className = "correct";
+      } else {
+        out.textContent = "Oops, not quite—try again! 😉";
+        out.className = "incorrect";
+      }
     }
   </script>
 </body>
