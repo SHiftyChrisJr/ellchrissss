@@ -1,242 +1,267 @@
+make a question place
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <title>For Elly 💌</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="A special anniversary site for Elly with gallery, love note, quiz, and interactive features." />
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
   <style>
-    /* Theme variables */
-    :root {
-      --pink-light: #ffb6c1;
-      --pink: #ff69b4;
-      --pink-dark: #c94e68;
-      --text-dark: #333;
-      --bg-light: rgba(255, 248, 248, 0.95);
-      --overlay-bg: rgba(255,255,255,0.9);
-      --transition: 0.3s ease;
-      --radius: 12px;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body {
-      height: 100%; font-family: 'Poppins', sans-serif;
+      height: 100%;
+      font-family: 'Poppins', sans-serif;
       background: url('https://amsterdamian.com/wp-content/uploads/2021/03/tulips-7jpg_s.jpg') no-repeat center center fixed;
-      background-size: cover; scroll-behavior: smooth;
+      background-size: cover;
       color: #fff;
+      scroll-behavior: smooth;
       overflow-x: hidden;
     }
-    body::before {
-      content: '';
-      position: fixed; inset: 0;
-      background: url('https://media.giphy.com/media/3o7aD2saalBwwftBIY/giphy.gif') repeat;
-      opacity: 0.07; pointer-events: none;
-      z-index: -1;
+
+    .screen {
+      display: none;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      text-align: center;
+      padding: 2rem;
+      transition: all 0.8s ease-in-out;
     }
 
-    header {
-      position: fixed; top: 0; width: 100%;
-      background: var(--bg-light); backdrop-filter: blur(10px);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      z-index: 1000;
+    .active {
+      display: flex;
+      animation: fadeIn 1.2s ease-out;
     }
-    nav { max-width: 1100px; margin: auto; display: flex; align-items: center; justify-content: space-between; padding: 0.5em 1em; }
-    .logo { font-family: 'Pacifico', cursive; font-size: 1.5em; color: var(--pink);
-             text-shadow: 1px 1px 4px rgba(0,0,0,0.2); }
-    .nav-links { display: flex; gap: 1em; }
-    .nav-links a {
-      text-decoration: none; color: var(--pink-dark); font-weight: 500;
-      padding: 0.5em; border-radius: var(--radius);
-      transition: background var(--transition), color var(--transition);
+
+    .intro h1 {
+      font-size: 3.5em;
+      margin-bottom: 1.2em;
+      font-family: 'Pacifico', cursive;
+      color: #ffeef2;
+      animation: bounce 1.5s infinite alternate;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.4);
     }
-    .nav-links a.active,
-    .nav-links a:hover { background: var(--pink-light); color: #fff; }
 
-    .screen { display: none; padding: 6rem 1rem 1rem; justify-content: center; align-items: flex-start; }
-    .screen.active { display: flex; }
+    .intro button {
+      padding: 14px 36px;
+      font-size: 1.3em;
+      background: linear-gradient(to right, #ff85c1, #ffb6c1);
+      color: #fff;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(255, 105, 180, 0.4);
+      animation: pulse 2s infinite;
+      transition: transform 0.2s ease;
+    }
 
-    h1 { font-size: 2.5em; color: var(--pink-dark); margin-bottom: 0.5em; }
-    #dayCounter { font-size: 1.1em; color: var(--pink-dark); margin-bottom: 1em; }
+    .intro button:hover {
+      transform: scale(1.05);
+    }
+
+    .overlay {
+      background: rgba(255, 248, 248, 0.95);
+      padding: 40px;
+      border-radius: 20px;
+      max-width: 1100px;
+      width: 95%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      font-size: 2.5em;
+      color: #c94e68;
+      margin-bottom: 0.8em;
+    }
+
     #typedText {
-      font-size: 1.2em; color: var(--pink-dark);
-      line-height: 1.7; white-space: pre-wrap; margin-bottom: 2em;
-      opacity: 0; transition: opacity 1s ease;
+      font-size: 1.3em;
+      color: #ba5c71;
+      line-height: 1.7;
+      white-space: pre-wrap;
+      min-height: 150px;
+      margin-bottom: 2em;
     }
-    #typedText.visible { opacity: 1; }
 
-    .gallery { display: grid; grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); gap: 1rem; margin-bottom: 2em; }
-    .photo-card { position: relative; border-radius: var(--radius); overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-                  transition: transform var(--transition); cursor: pointer; }
-    .photo-card img { width: 100%; display: block; height: 200px; object-fit: cover; }
-    .photo-card:hover { transform: scale(1.03); }
-    .photo-card .caption { position: absolute; bottom: 0; width: 100%; background: var(--pink-light); color: #fff;
-                             padding: 0.5em; text-align: center; font-size: 0.9em; }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      justify-content: center;
+    }
 
-    /* Q&A and Quiz styling */
-    .question-section, .quiz-section {
-      background: var(--overlay-bg); padding: 1.5em; border-radius: var(--radius);
-      max-width: 800px; margin: auto 0 2em;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    .photo-card {
+      background-color: #fff;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease;
+      cursor: pointer;
     }
-    .question-section h2, .quiz-section h2 { font-family: 'Pacifico', cursive; color: var(--pink-dark); margin-bottom: 0.5em; }
 
-    .question-section textarea {
-      width: 100%; padding: 0.8em; border: 2px solid var(--pink-light);
-      border-radius: var(--radius); resize: vertical; outline: none;
-      transition: border-color var(--transition);
+    .photo-card img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
     }
-    .question-section textarea:focus { border-color: var(--pink); }
-    .question-section button {
-      margin-top: 0.5em; padding: 0.6em 1.2em; background: var(--pink);
-      color: #fff; border: none; border-radius: var(--radius);
-      cursor: pointer; transition: background var(--transition);
-    }
-    .question-section button:hover { background: var(--pink-dark); }
-    #questionOutput { margin-top: 1em; font-style: italic; color: var(--pink-dark); }
 
-    .quiz-section form { display: grid; gap: 0.5em; }
-    .quiz-section label { display: flex; align-items: center; gap: 0.5em; color: var(--text-dark); }
-    .quiz-section button { margin-top: 1em; padding: 0.6em 1.2em; background: var(--pink);
-                             color: #fff; border: none; border-radius: var(--radius);
-                             cursor: pointer; transition: background var(--transition);
+    .photo-card:hover {
+      transform: scale(1.05);
     }
-    .quiz-section button:hover { background: var(--pink-dark); }
-    #quizOutput { margin-top: 1em; font-weight: 600; }
-    #quizOutput.correct { color: green; }
-    #quizOutput.incorrect { color: red; }
 
-    /* Floating hearts */
-    .heart { position: fixed; width: 20px; height: 20px;
-             background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Heart_symbol_red.svg/2048px-Heart_symbol_red.svg.png') no-repeat center;
-             background-size: contain; animation: floatUp 6s infinite ease-in; opacity: 0.6;
+    .caption {
+      background-color: #f4a1ab;
+      padding: 12px;
+      color: #fff;
+      font-weight: 600;
+      font-size: 1em;
+      text-align: center;
     }
-    @keyframes floatUp { 0% { transform: translateY(100vh) scale(0.5); opacity: 0.6; } 100% { transform: translateY(-10vh) scale(1); opacity: 0; } }
-    @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-8px); } }
-    @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(255, 105, 180, 0.5); } 70% { box-shadow: 0 0 0 15px rgba(255,105,180,0); } 100% { box-shadow: 0; } }
+
+    .heart {
+      position: fixed;
+      width: 22px;
+      height: 22px;
+      background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Heart_symbol_red.svg/2048px-Heart_symbol_red.svg.png') no-repeat center;
+      background-size: contain;
+      animation: floatUp 6s infinite ease-in;
+      opacity: 0.6;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) scale(0.5); opacity: 0.6; }
+      100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes bounce {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-8px); }
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(255, 105, 180, 0.5); }
+      70% { box-shadow: 0 0 0 20px rgba(255, 105, 180, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 105, 180, 0); }
+    }
 
     @media (max-width: 600px) {
-      nav ul { flex-direction: column; background: var(--bg-light); padding: 1em; border-radius: 0 0  var(--radius) var(--radius); }
-      h1 { font-size: 2em; }
+      h1 { font-size: 1.8em; }
       #typedText { font-size: 1em; }
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: url('https://media.giphy.com/media/3o7aD2saalBwwftBIY/giphy.gif') repeat;
+      opacity: 0.07;
+      z-index: -1;
+      pointer-events: none;
     }
   </style>
 </head>
 <body>
-  <!-- Floating hearts -->
-  <script>
-    setInterval(() => {
-      const heart = document.createElement('div');
-      heart.className = 'heart';
-      heart.style.left = Math.random() * 100 + 'vw';
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 6000);
-    }, 800);
-  </script>
-
-  <!-- Background music -->
-  <audio autoplay loop muted>
-    <source src="https://cdn.pixabay.com/download/audio/2023/03/26/audio_2f93402b08.mp3?filename=romantic-music-144109.mp3" type="audio/mp3" />
-  </audio>
-
-  <!-- Header & Navigation -->
-  <header>
-    <nav>
-      <div class="logo">For Elly 💌</div>
-      <ul class="nav-links">
-        <li><a href="#home" class="active" onclick="navigate(event,'home')">Home</a></li>
-        <li><a href="#letter" onclick="navigate(event,'anniversary')">Letter</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <!-- Home Section -->
-  <main>
-    <section id="home" class="screen active" aria-label="Home">
-      <h1 style="font-family:'Pacifico'">Welcome, Elly 💌</h1>
-      <button onclick="navigate(null,'anniversary')" style="animation:bounce 1.5s infinite alternate; padding:1em 2em; background:var(--pink); color:#fff; border:none; border-radius:var(--radius); cursor:pointer;">Open the Letter</button>
-    </section>
-
-    <!-- Letter & Features Section -->
-    <section id="anniversary" class="screen" aria-label="Letter">
-      <div class="overlay">
-        <div id="dayCounter" aria-live="polite"></div>
-        <h1>Happy 7 Months, Elly 🌸</h1>
-        <div id="typedText"></div>
-
-        <!-- Photo Gallery -->
-        <div class="gallery">
-          <!-- Photo cards (repeat for each) -->
-          <div class="photo-card"><img data-src="https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FTxgPNk2KZKM9lts5EFTr%2Fimg_0322.jpg?alt=media&token=2db64a6c-3308-40e5-bb85-8bdfda6aff73" alt="Successful Suitcase Rummage" class="lazy"><div class="caption">Successful Suitcase Rummage</div></div>
-          <!-- … other photo-cards … -->
+<script>
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.style.left = Math.random() * 100 + "vw";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+  }, 800);
+</script>
+<audio autoplay loop muted>
+  <source src="https://cdn.pixabay.com/download/audio/2023/03/26/audio_2f93402b08.mp3?filename=romantic-music-144109.mp3" type="audio/mp3">
+</audio>
+<div id="home" class="screen intro active">
+  <div>
+    <h1>For Elly 💌</h1>
+    <button onclick="showAnniversary()">Open</button>
+  </div>
+</div>
+<div id="anniversary" class="screen">
+  <div class="overlay">
+    <p id="dayCounter" style="font-size: 1.2em; margin-bottom: 1em; color: #a84c63;" aria-live="polite"></p>
+    <h1>Happy 7 Months, Elly 🌸</h1>
+    <div id="typedText"></div>
+    <div class="gallery">
+      <div class="gallery"> <!-- Photo Cards --> <!-- Copy-paste from your existing photo cards, unchanged --> <!-- Just updating layout & transitions -->
+        <div class="photo-card"> <img src="https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FTxgPNk2KZKM9lts5EFTr%2Fimg_0322.jpg?alt=media&token=2db64a6c-3308-40e5-bb85-8bdfda6aff73" alt="Photo 1"> 
+        <div class="caption">Successful Suitcase Rummage</div> 
         </div>
-
-        <!-- Ask Me Anything -->
-        <div class="question-section">
-          <h2>Ask Me Anything 💬</n2>
-          <textarea id="questionInput" rows="3" placeholder="Type your question…"></textarea>
-          <button type="button" onclick="submitQuestion()">Ask</button>
-          <div id="questionOutput"></div>
+        <div class="photo-card"> <img src="https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FTxgPNk2KZKM9lts5EFTr%2Fimg_0993.jpg?alt=media&token=4cf78323-83c1-4b69-a830-24bda274896a" alt="Photo 2">
+          <div class="caption">Our Painting Date</div>
         </div>
-
-        <!-- Multiple-Choice Quiz -->
-        <div class="quiz-section">
-          <h2>Quick Quiz 📖</h2>
-          <form id="quizForm">
-            <p>Which day did we start dating?</p>
-            <label><input type="radio" name="quiz" value="A"> October 25, 2024</label>
-            <label><input type="radio" name="quiz" value="B"> November 25, 2024</label>
-            <label><input type="radio" name="quiz" value="C"> December 25, 2024</label>
-            <button type="button" onclick="submitQuiz()">Submit</button>
-          </form>
-          <div id="quizOutput"></div>
+        <div class="photo-card"> <img src="https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FTxgPNk2KZKM9lts5EFTr%2Fimg_9871.jpg?alt=media&token=ca02f570-3592-471b-9425-51045387e4f5" alt="Photo 3"> 
+          <div class="caption">Wardrobe Swap Wooo</div> 
+        </div> 
+        <div class="photo-card"> <img src="https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FPrWdn00KRqq1WqGt79IW%2Fimg_1238.jpg?alt=media&token=2b8fd76a-7be9-4e09-8a48-53aeeef8f330" alt="Photo 4"> 
+          <div class="caption">Our Silly Moments</div> 
+        </div> 
+        <div class="photo-card"> <img src="https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FPrWdn00KRqq1WqGt79IW%2Fimg_0872.jpg?alt=media&token=4c5fbaa4-a71a-499d-8f63-b1cecdbf23c3" alt="Photo 5">
+          <div class="caption">Your Birthday</div>
+        </div> 
+        <div class="photo-card"> <img src="https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FPrWdn00KRqq1WqGt79IW%2Fimg_0508.jpg?alt=media&token=30dcaa2c-11b7-4170-8b81-111223ced5ab" alt="Photo 6"> 
+          <div class="caption">Awww She's So Tall</div>
         </div>
-      </div>
-    </section>
-  </main>
+        <div class="photo-card"> <img src="https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FPrWdn00KRqq1WqGt79IW%2Fimg_0514.jpg?alt=media&token=59de08a2-e876-4c47-a829-fbe0801a6cd3" alt="Photo 7">
+          <div class="caption">You + Me = 💕</div> 
+        </div> 
+        <div class="photo-card"> <img src="https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FPrWdn00KRqq1WqGt79IW%2Fimg_8643.jpg?alt=media&token=a8e21764-3716-4303-bdb6-dc61c790cbb2" alt="Photo 8"> 
+          <div class="caption">Where It Officially Started</div>
+        </div> 
+      </div> 
+    </div> 
+  </div>
+      <!-- Photo cards go here -->
+    </div>
+  </div>
+</div>
+<script>
+  function showAnniversary() {
+    document.getElementById('home').classList.remove('active');
+    document.getElementById('anniversary').classList.add('active');
+    typeText();
+  }
+  function typeText() {
+    const text = `I wish I could be right beside you today, but until then.
 
-  <script>
-    // Navigation
-    function navigate(e, id) {
-      if(e) e.preventDefault();
-      document.querySelectorAll('.screen').forEach(sec => sec.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-      document.querySelectorAll('.nav-links a').forEach(a=> a.classList.remove('active'));
-      document.querySelector(`[href="#${id}"]`).classList.add('active');
-      if(id==='anniversary') startTyping();
+Thank you for being my sunshine and softness through it all.
+
+I might not always say it the right way, but I hope you always feel how deeply I love you.
+
+Here’s to every beautiful, silly, and perfectly imperfect moment we’ve shared. I can’t wait for the rest. 💖`;
+    let i = 0;
+    const target = document.getElementById('typedText');
+    target.textContent = '';
+    function typeChar() {
+      if (i < text.length) {
+        target.textContent += text.charAt(i);
+        i++;
+        setTimeout(typeChar, 35);
+      }
     }
-
-    // Typing effect
-    function startTyping() {
-      const txt = `I wish I could be right beside you today, but until then.\n\n`+
-        `Thank you for being my sunshine and softness through it all.\n\n`+
-        `I might not always say it the right way, but I hope you always feel how deeply I love you.\n\n`+
-        `Here’s to every beautiful, silly, and perfectly imperfect moment we’ve shared. 💖`;
-      let i=0, target=document.getElementById('typedText');
-      target.textContent=''; target.classList.remove('visible');
-      (function type(){ if(i<txt.length){ target.textContent+=txt.charAt(i++); setTimeout(type,35);} else {target.classList.add('visible');}})();
-    }
-
-    // Day counter
-    (function(){ const start=new Date('2024-11-25'); const diff=Math.floor((new Date()-start)/(1000*60*60*24));
-      document.getElementById('dayCounter').textContent=`We've been together for ${diff} days 💘`; })();
-
-    // Ask Me Anything
-    function submitQuestion(){ const q=document.getElementById('questionInput').value.trim(); if(!q) return;
-      document.getElementById('questionOutput').textContent=`You asked: “${q}” — Can’t wait to answer you in person! 💕`;
-      document.getElementById('questionInput').value=''; }
-
-    // Quiz
-    function submitQuiz(){ const c=document.querySelector('input[name="quiz"]:checked'); const out=document.getElementById('quizOutput');
-      if(!c){ out.textContent='Please select an answer.'; out.className=''; return;} 
-      if(c.value==='B'){ out.textContent='Correct! 🎉 November 25, 2024 is our special day.'; out.className='correct'; }
-      else { out.textContent='Oops, not quite—try again! 😉'; out.className='incorrect'; } }
-
-    // Lazy load images
-    document.addEventListener('DOMContentLoaded',()=>{
-      document.querySelectorAll('img.lazy').forEach(img=>{ const src=img.dataset.src;
-        img.src=src; img.classList.remove('lazy'); });
-    });
-  </script>
+    typeChar();
+  }
+  const startDate = new Date("2024-11-25");
+  const today = new Date();
+  const diffTime = today - startDate;
+  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+  document.getElementById('dayCounter').textContent =
+    `We've been together for ${diffDays} days 💘`;
+</script>
 </body>
 </html>
