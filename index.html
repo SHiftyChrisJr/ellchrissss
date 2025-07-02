@@ -403,8 +403,8 @@ Here’s to every beautiful, silly, and perfectly imperfect moment we’ve share
       <h2>Quick Relationship Quiz</h2>
       <form id="quizForm">
         <p>Where did we first meet?</p>
-        <label><input type="radio" name="quiz" value="A"> At the coffee shop</label>
-        <label><input type="radio" name="quiz" value="B"> In class</label>
+        <label><input type="radio" name="quiz" value="A"> Mall</label>
+        <label><input type="radio" name="quiz" value="B"> Party</label>
         <label><input type="radio" name="quiz" value="C"> Online</label>
         <button type="button" onclick="submitQuiz()">Check Answer</button>
       </form>
@@ -430,7 +430,7 @@ Here’s to every beautiful, silly, and perfectly imperfect moment we’ve share
                 return;
       }
       if (choice.value === 'B') {
-        output.textContent = 'Correct! 🎉 We first met in class.';
+        output.textContent = 'Correct! 🎉 We first met at a party.';
         output.className = 'correct';
       } else {
         output.textContent = 'Not quite, try again! 😉';
