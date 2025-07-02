@@ -94,7 +94,13 @@
       position: relative;
     }
 
-    h1 { font-size: 2.5em; color: #c94e68; margin-bottom: 0.8em; }
+    h1 { font-size: 2.5em; color: #c94e68; margin-bottom: 0.5em; }
+    #dayCounter {
+      font-size: 1.2em;
+      color: #a84c63;
+      margin-bottom: 1em;
+      font-weight: 500;
+    }
     #typedText {
       font-size: 1.3em; color: #ba5c71;
       line-height: 1.7; white-space: pre-wrap;
@@ -115,7 +121,8 @@
       border-radius: 18px;
       overflow: hidden;
       box-shadow: 0 4px 18px rgba(0, 0, 0, 0.2);
-      transition: transform 0.3s ease; cursor: pointer;
+      transition: transform 0.3s ease;
+      cursor: pointer;
     }
     .photo-card img {
       width: 100%; height: 280px; object-fit: cover;
@@ -128,7 +135,6 @@
       text-align: center;
     }
 
-    /* Ask-me section */
     .question-section {
       text-align: left;
       max-width: 700px;
@@ -174,7 +180,6 @@
       font-style: italic;
     }
 
-    /* Animations */
     .heart {
       position: fixed;
       width: 22px; height: 22px;
@@ -183,7 +188,6 @@
       animation: floatUp 6s infinite ease-in;
       opacity: 0.6;
     }
-
     @keyframes floatUp {
       0% { transform: translateY(100vh) scale(0.5); opacity: 0.6; }
       100% { transform: translateY(-10vh) scale(1); opacity: 0; }
@@ -233,7 +237,7 @@
     </ul>
   </nav>
 
-  <!-- Home -->
+  <!-- Home screen -->
   <div id="home" class="screen intro active">
     <div>
       <h1>For Elly 💌</h1>
@@ -241,20 +245,25 @@
     </div>
   </div>
 
-  <!-- Anniversary & Q&A -->
+  <!-- Anniversary & Q&A screen -->
   <div id="anniversary" class="screen">
     <div class="overlay">
+      <div id="dayCounter" aria-live="polite"></div>
       <h1>Happy 7 Months, Elly 🌸</h1>
       <div id="typedText"></div>
 
       <div class="gallery">
-        <!-- your photo cards here... -->
+        <!-- Paste your photo cards here -->
+        <div class="photo-card">
+          <img src="https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FTxgPNk2KZKM9lts5EFTr%2Fimg_0322.jpg?alt=media&token=2db64a6c-3308-40e5-bb85-8bdfda6aff73" alt="Photo 1">
+          <div class="caption">Successful Suitcase Rummage</div>
+        </div>
+        <!-- … repeat for each of your eight photos … -->
       </div>
 
-      <!-- New Question Section -->
       <div class="question-section">
         <h2>Ask Me Anything 💬</h2>
-        <textarea id="questionInput" rows="3" placeholder="Type your question here..."></textarea>
+        <textarea id="questionInput" rows="3" placeholder="Type your question here…"></textarea>
         <button onclick="submitQuestion()">Ask</button>
         <div id="questionOutput"></div>
       </div>
@@ -262,15 +271,17 @@
   </div>
 
   <script>
+    // Page switching
     function showPage(id) {
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
       document.getElementById(id).classList.add('active');
       if (id === 'anniversary') startTyping();
     }
 
-    // typing effect
+    // Typing effect
     function startTyping() {
-      const text = `I wish I could be right beside you today, but until then.\n\n` +
+      const text =
+        `I wish I could be right beside you today, but until then.\n\n` +
         `Thank you for being my sunshine and softness through it all.\n\n` +
         `I might not always say it the right way, but I hope you always feel how deeply I love you.\n\n` +
         `Here’s to every beautiful, silly, and perfectly imperfect moment we’ve shared. 💖`;
@@ -285,11 +296,22 @@
       })();
     }
 
-    // question handler
+    // Day counter since relationship start
+    (function updateDayCounter() {
+      const startDate = new Date("2024-11-25");
+      const today = new Date();
+      const diffTime = today - startDate;
+      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+      document.getElementById('dayCounter').textContent =
+        `We've been together for ${diffDays} days 💘`;
+    })();
+
+    // Ask-me handler
     function submitQuestion() {
       const q = document.getElementById('questionInput').value.trim();
       if (!q) return;
-      document.getElementById('questionOutput').textContent = `You asked: “${q}” — Can’t wait to answer you in person! 💕`;
+      document.getElementById('questionOutput').textContent =
+        `You asked: “${q}” — Can’t wait to answer you in person! 💕`;
       document.getElementById('questionInput').value = '';
     }
   </script>
