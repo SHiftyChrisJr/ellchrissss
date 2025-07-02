@@ -265,3 +265,178 @@ Here’s to every beautiful, silly, and perfectly imperfect moment we’ve share
 </script>
 </body>
 </html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Relationship Questions 💖</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Ask Me Anything and Quick Quiz about our relationship." />
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --pink: #ff69b4;
+      --pink-light: #ffb6c1;
+      --pink-dark: #c94e68;
+      --bg: #fff;
+      --text: #333;
+      --radius: 12px;
+      --transition: 0.3s ease;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--pink-light);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .container {
+      background: var(--bg);
+      border-radius: var(--radius);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      padding: 2rem;
+      max-width: 500px;
+      width: 100%;
+    }
+
+    h1 {
+      font-family: 'Pacifico', cursive;
+      color: var(--pink-dark);
+      margin-bottom: 1rem;
+    }
+
+    /* Ask Me Anything */
+    .question-section,
+    .quiz-section {
+      margin-top: 1.5rem;
+      text-align: left;
+    }
+    .question-section textarea {
+      width: 100%;
+      padding: 0.8rem;
+      border: 2px solid var(--pink);
+      border-radius: var(--radius);
+      font-size: 1rem;
+      resize: vertical;
+      transition: border var(--transition);
+    }
+    .question-section textarea:focus {
+      border-color: var(--pink-dark);
+    }
+    .question-section button {
+      margin-top: 0.5rem;
+      padding: 0.5rem 1.5rem;
+      background: var(--pink);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: background var(--transition);
+    }
+    .question-section button:hover {
+      background: var(--pink-dark);
+    }
+    #questionOutput {
+      margin-top: 1rem;
+      font-style: italic;
+      color: var(--pink-dark);
+    }
+
+    /* Quiz */
+    .quiz-section form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      text-align: left;
+    }
+    .quiz-section label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .quiz-section input[type="radio"] {
+      accent-color: var(--pink);
+    }
+    .quiz-section button {
+      align-self: flex-start;
+      margin-top: 0.5rem;
+      padding: 0.5rem 1.5rem;
+      background: var(--pink);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: background var(--transition);
+    }
+    .quiz-section button:hover {
+      background: var(--pink-dark);
+    }
+    #quizOutput {
+      margin-top: 1rem;
+      font-weight: 600;
+    }
+    .correct { color: green; }
+    .incorrect { color: red; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Let's Chat 💬</h1>
+
+    <!-- Ask Me Anything -->
+    <div class="question-section">
+      <h2>Ask Me Anything</h2>
+      <textarea id="questionInput" rows="4" placeholder="What's on your mind?..."></textarea>
+      <button onclick="submitQuestion()">Send</button>
+      <div id="questionOutput"></div>
+    </div>
+
+    <!-- Relationship Quiz -->
+    <div class="quiz-section">
+      <h2>Quick Relationship Quiz</h2>
+      <form id="quizForm">
+        <p>Where did we first meet?</p>
+        <label><input type="radio" name="quiz" value="A"> At the coffee shop</label>
+        <label><input type="radio" name="quiz" value="B"> In class</label>
+        <label><input type="radio" name="quiz" value="C"> Online</label>
+        <button type="button" onclick="submitQuiz()">Check Answer</button>
+      </form>
+      <div id="quizOutput"></div>
+    </div>
+  </div>
+
+  <script>
+    function submitQuestion() {
+      const q = document.getElementById('questionInput').value.trim();
+      if (!q) return;
+      document.getElementById('questionOutput').textContent =
+        `You asked: “${q}” — I'll share my thoughts soon! 💕`;
+      document.getElementById('questionInput').value = '';
+    }
+
+    function submitQuiz() {
+      const choice = document.querySelector('input[name="quiz"]:checked');
+      const output = document.getElementById('quizOutput');
+      if (!choice) {
+        output.textContent = 'Please select an option.';
+        output.className = '';
+                return;
+      }
+      if (choice.value === 'B') {
+        output.textContent = 'Correct! 🎉 We first met in class.';
+        output.className = 'correct';
+      } else {
+        output.textContent = 'Not quite, try again! 😉';
+        output.className = 'incorrect';
+      }
+    }
+  </script>
+</body>
+</html>
