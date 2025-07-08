@@ -85,9 +85,8 @@
     .incorrect { color:red; }
     #secretMsg { margin-top:1rem; font-weight:600; color:var(--pink-dark); }
 
-    /* Timeline */
-    .timeline { display:flex; overflow-x:auto; gap:2rem; padding:1rem 0; }
-    .timeline-item { flex:0 0 auto; background:var(--bg-light); padding:1rem; border-radius:var(--radius); min-width:200px; }
+    /* Scroll-to-top */
+    #toTop { position:fixed; bottom:1rem; right:1rem; padding:0.8rem; background:var(--pink); color:#fff; border:none; border-radius:50%; font-size:1.5em; cursor:pointer; display:none; }
 
     /* Animations */
     @keyframes fadeIn { from{opacity:0;transform:translateY(20px);} to{opacity:1;transform:translateY(0);} }
@@ -105,6 +104,7 @@
       heart.style.position = 'fixed';
       heart.style.left = Math.random()*100 + 'vw';
       heart.style.top = Math.random()*100 + 'vh';
+      heart.style.pointerEvents = 'none';
       document.body.appendChild(heart);
       heart.animate(
         [{ transform: 'scale(1)', opacity: 1 }, { transform: 'scale(0)', opacity: 0 }],
@@ -124,12 +124,13 @@
 
   <!-- Header -->
   <header role="banner">
-<nav role="navigation">
-  <a href="#home" class="active" onclick="navigate(event,'home')" tabindex="0">Home</a>
-  <a href="#anniversary" onclick="navigate(event,'anniversary')" tabindex="0">Letter</a>
-  <a href="https://open.spotify.com/playlist/37i9dQZF1DX3rxVfibe1L0" target="_blank" tabindex="0">Playlist 🎵</a>
-</nav>
-
+    <nav role="navigation">
+      <a href="#home" class="active" onclick="navigate(event,'home')" tabindex="0">Home</a>
+      <a href="#anniversary" onclick="navigate(event,'anniversary')" tabindex="0">Letter</a>
+      <a href="#questions" onclick="navigate(event,'questions')" tabindex="0">Q&A & Quiz</a>
+      <a href="#timeline" onclick="navigate(event,'timeline')" tabindex="0">Timeline</a>
+      <a href="https://open.spotify.com/playlist/37i9dQZF1DX3rxVfibe1L0" target="_blank" tabindex="0">Playlist 🎵</a>
+    </nav>
     <button id="themeToggle" aria-label="Toggle theme">🌙</button>
   </header>
 
@@ -149,40 +150,20 @@
         <h1 id="ann-heading">Happy 7 Months, Elly 🌸</h1>
         <div id="typedText"></div>
 
-
+        <!-- Copy & Share -->
+        <button id="copyText" title="Copy letter">Copy Letter 📋</button>
+        <button id="shareBtn" title="Share on Twitter">Share 🐦</button>
 
         <!-- Gallery -->
-      <div class="gallery"> <!-- Photo Cards --> <!-- Copy-paste from your existing photo cards, unchanged --> <!-- Just updating layout & transitions -->
-        <div class="photo-card"> <img src="https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FTxgPNk2KZKM9lts5EFTr%2Fimg_0322.jpg?alt=media&token=2db64a6c-3308-40e5-bb85-8bdfda6aff73" alt="Photo 1"> 
-        <div class="caption">Successful Suitcase Rummage</div> 
+        <div class="gallery">
+          <!-- Add loading="lazy" for performance -->
+          <div class="photo-card"><img loading="lazy" src="..." alt="Photo 1"><div class="caption">Successful Suitcase Rummage</div></div>
+          <!-- ... other photo-cards ... -->
         </div>
-        <div class="photo-card"> <img src="https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FTxgPNk2KZKM9lts5EFTr%2Fimg_0993.jpg?alt=media&token=4cf78323-83c1-4b69-a830-24bda274896a" alt="Photo 2">
-          <div class="caption">Our Painting Date</div>
-        </div>
-        <div class="photo-card"> <img src="https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FTxgPNk2KZKM9lts5EFTr%2Fimg_9871.jpg?alt=media&token=ca02f570-3592-471b-9425-51045387e4f5" alt="Photo 3"> 
-          <div class="caption">Wardrobe Swap Wooo</div> 
-        </div> 
-        <div class="photo-card"> <img src="https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FPrWdn00KRqq1WqGt79IW%2Fimg_1238.jpg?alt=media&token=2b8fd76a-7be9-4e09-8a48-53aeeef8f330" alt="Photo 4"> 
-          <div class="caption">Our Silly Moments</div> 
-        </div> 
-        <div class="photo-card"> <img src="https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FPrWdn00KRqq1WqGt79IW%2Fimg_0872.jpg?alt=media&token=4c5fbaa4-a71a-499d-8f63-b1cecdbf23c3" alt="Photo 5">
-          <div class="caption">Your Birthday</div>
-        </div> 
-        <div class="photo-card"> <img src="https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FPrWdn00KRqq1WqGt79IW%2Fimg_0508.jpg?alt=media&token=30dcaa2c-11b7-4170-8b81-111223ced5ab" alt="Photo 6"> 
-          <div class="caption">Awww She's So Tall</div>
-        </div>
-        <div class="photo-card"> <img src="https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FPrWdn00KRqq1WqGt79IW%2Fimg_0514.jpg?alt=media&token=59de08a2-e876-4c47-a829-fbe0801a6cd3" alt="Photo 7">
-          <div class="caption">You + Me = 💕</div> 
-        </div> 
-        <div class="photo-card"> <img src="https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FPrWdn00KRqq1WqGt79IW%2Fimg_8643.jpg?alt=media&token=a8e21764-3716-4303-bdb6-dc61c790cbb2" alt="Photo 8"> 
-          <div class="caption">Where It Officially Started</div>
-        </div> 
-      </div> 
-    </div> 
-  </div>
+      </div>
     </section>
 
-    <!-- Questions -->
+    <!-- Q&A & Quiz -->
     <section id="questions" class="screen" role="region" aria-labelledby="qa-heading">
       <div class="overlay reveal">
         <div class="question-section">
@@ -205,6 +186,19 @@
         </div>
       </div>
     </section>
+
+    <!-- Timeline -->
+    <section id="timeline" class="screen" role="region" aria-labelledby="timeline-heading">
+      <div class="overlay reveal">
+        <h2 id="timeline-heading">Our Journey Timeline</h2>
+        <div class="timeline">
+          <div class="timeline-item"><strong>2024-09-06</strong><p>First Met Online</p></div>
+          <div class="timeline-item"><strong>2024-10-12</strong><p>First Painting Date</p></div>
+          <div class="timeline-item"><strong>2024-11-25</strong><p>Started Dating</p></div>
+          <!-- Add more events -->
+        </div>
+      </div>
+    </section>
   </main>
 
   <!-- Lightbox -->
@@ -213,7 +207,10 @@
     <img src="" alt="Expanded photo">
   </div>
 
-  <!-- Service Worker Registration & All JavaScript -->
+  <!-- Scroll to Top -->
+  <button id="toTop" aria-label="Scroll to top">↑</button>
+
+  <!-- JavaScript -->
   <script>
     // Navigation
     function navigate(e, id) {
@@ -227,14 +224,9 @@
 
     // Typing effect
     function startTyping() {
-      const txt = `I wish I could be right beside you today, but until then.
-
-Thank you for being my sunshine and softness through it all.
-
-I might not always say it the right way, but I hope you always feel how deeply I love you.
-
-Here’s to every beautiful, silly, and perfectly imperfect moment we’ve shared. 💖`;
-      let i = 0, tgt = document.getElementById('typedText');
+      const txt = `I wish I could be right beside you today, but until then.\n\nThank you for being my sunshine and softness through it all.\n\nI might not always say it the right way, but I hope you always feel how deeply I love you.\n\nHere’s to every beautiful, silly, and perfectly imperfect moment we’ve shared. 💖`;
+      let i = 0;
+      const tgt = document.getElementById('typedText');
       tgt.textContent = '';
       tgt.style.opacity = 0;
       (function type() {
@@ -247,17 +239,23 @@ Here’s to every beautiful, silly, and perfectly imperfect moment we’ve share
       })();
     }
 
-    // Day counter
+    // Anniversary Day Counter
     (function() {
-      const start = new Date('2024-11-25'); 
+      const start = new Date('2024-11-25');
       const diff = Math.floor((new Date() - start) / (1000 * 60 * 60 * 24));
       document.getElementById('dayCounter').textContent = `We've been together for ${diff} days 💘`;
     })();
-        (function() {
-      const start = new Date('2024-09-06'); 
-      const diff = Math.floor((new Date() - start) / (1000 * 60 * 60 * 24));
-      document.getElementById('dayCounter').textContent = `We've known each other together for ${diff} days 💘`;
-    })();
+
+    // Copy & Share
+    document.getElementById('copyText').addEventListener('click', () => {
+      const txt = document.getElementById('typedText').textContent;
+      navigator.clipboard.writeText(txt);
+      alert('Letter copied!');
+    });
+    document.getElementById('shareBtn').addEventListener('click', () => {
+      const text = encodeURIComponent(document.getElementById('typedText').textContent);
+      window.open(`https://twitter.com/intent/tweet?text=${text}`, '_blank');
+    });
 
     // Q&A
     function submitQuestion() {
@@ -267,8 +265,22 @@ Here’s to every beautiful, silly, and perfectly imperfect moment we’ve share
       document.getElementById('questionInput').value = '';
     }
 
-    // Quiz
-    
+    // Quiz Logic
+    function submitQuiz() {
+      const form = document.getElementById('quizForm');
+      const choice = form.quiz.value;
+      const output = document.getElementById('quizOutput');
+      if (!choice) { output.textContent = 'Please select an answer.'; return; }
+      if (choice === 'C') {
+        output.textContent = 'Correct! 🎉';
+        output.className = 'correct';
+        document.getElementById('secretMsg').hidden = false;
+      } else {
+        output.textContent = 'Oops, try again.';
+        output.className = 'incorrect';
+      }
+    }
+
     // Theme Toggle
     const themeBtn = document.getElementById('themeToggle');
     themeBtn.addEventListener('click', () => {
@@ -277,55 +289,31 @@ Here’s to every beautiful, silly, and perfectly imperfect moment we’ve share
       themeBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
       localStorage.setItem('theme', theme);
     });
-    const saved = localStorage.getItem('theme');
-    if (saved) document.body.setAttribute('data-theme', saved);
+    const saved = localStorage.getItem('theme'); if (saved) document.body.setAttribute('data-theme', saved);
 
     // Music Toggle
-    const music = document.getElementById('bgMusic'),
-          mBtn = document.getElementById('musicToggle');
-    mBtn.addEventListener('click', () => {
-      if (music.paused) { music.play(); mBtn.textContent='🔇'; }
-      else            { music.pause(); mBtn.textContent='🔊'; }
-    });
+    const music = document.getElementById('bgMusic'), mBtn = document.getElementById('musicToggle');
+    mBtn.addEventListener('click', () => { if (music.paused) { music.play(); mBtn.textContent='🔇'; } else { music.pause(); mBtn.textContent='🔊'; }});
 
-    // Scroll header & reveal animations
+    // Scroll header, reveal animations & to-top button
+    const toTop = document.getElementById('toTop');
     let lastY = window.scrollY;
     window.addEventListener('scroll', () => {
       document.querySelector('header').classList.toggle('scrolled', window.scrollY > lastY);
+      document.querySelectorAll('.reveal').forEach(el => { if (el.getBoundingClientRect().top < window.innerHeight * 0.9) el.style.animation = 'fadeIn 0.6s forwards'; });
       lastY = window.scrollY;
-      document.querySelectorAll('.reveal').forEach(el => {
-        if (el.getBoundingClientRect().top < window.innerHeight * 0.9) {
-          el.style.animation = 'fadeIn 0.6s forwards';
-        }
-      });
+      toTop.style.display = window.scrollY > 300 ? 'block' : 'none';
     });
+    toTop.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
 
-    // Lightbox logic
-    document.querySelectorAll('.photo-card img').forEach(img => {
-      img.addEventListener('click', () => {
-        const lb = document.getElementById('lightbox');
-        lb.querySelector('img').src = img.src;
-        lb.style.display = 'flex';
-      });
-    });
-    document.querySelector('#lightbox .close').addEventListener('click', () => {
-      document.getElementById('lightbox').style.display = 'none';
-    });
-
-    // Geolocation stub
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(pos => {
-        const { latitude, longitude } = pos.coords;
-        // TODO: if near special coords, show a custom message...
-      });
-    }
+    // Lightbox logic & ESC key
+    const lb = document.getElementById('lightbox');
+    document.querySelectorAll('.photo-card img').forEach(img => img.addEventListener('click', () => { lb.querySelector('img').src = img.src; lb.style.display = 'flex'; }));
+    document.querySelector('#lightbox .close').addEventListener('click', () => lb.style.display='none');
+    window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && lb.style.display==='flex') lb.style.display='none'; });
 
     // Service Worker
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js');
-      });
-    }
+    if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('/service-worker.js'));
   </script>
 </body>
 </html>
