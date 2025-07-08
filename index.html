@@ -230,6 +230,43 @@
         <p id="knownCounter" class="counter" aria-live="polite"></p>
         <h1>Happy 7 Months, Elly 🌸</h1>
         <div id="typedText"></div>
+<div id="countdown">
+  <span id="days">0</span> days
+  <span id="hours">0</span> hours
+  <span id="minutes">0</span> minutes
+  <span id="seconds">0</span> seconds
+</div>
+
+<script>
+  // Set target date/time: Monday, July 14, 2025 at 00:00:00
+  const target = new Date('2025-07-14T00:00:00').getTime();
+
+  function updateCountdown() {
+    const now = Date.now();
+    const diff = target - now;
+
+    if (diff <= 0) {
+      document.getElementById('countdown').textContent = '🎉 It’s here! 🎉';
+      clearInterval(intervalId);
+      return;
+    }
+
+    const secs = Math.floor(diff / 1000 % 60);
+    const mins = Math.floor(diff / (1000 * 60) % 60);
+    const hrs  = Math.floor(diff / (1000 * 60 * 60) % 24);
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+    document.getElementById('days').textContent    = days;
+    document.getElementById('hours').textContent   = hrs;
+    document.getElementById('minutes').textContent = mins;
+    document.getElementById('seconds').textContent = secs;
+  }
+
+  // first call
+  updateCountdown();
+  // update every second
+  const intervalId = setInterval(updateCountdown, 1000);
+</script>
 
                 <!-- Gallery -->
         <!-- Gallery -->
