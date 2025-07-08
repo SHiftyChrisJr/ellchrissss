@@ -117,8 +117,8 @@
     <nav role="navigation">
       <a href="#home" class="active" onclick="navigate(event,'home')" tabindex="0">Home</a>
       <a href="#anniversary" onclick="navigate(event,'anniversary')" tabindex="0">Letter</a>
-      <a href="#timeline" onclick="navigate(event,'timeline')" tabindex="0">Timeline</a>
-      <a href="https://open.spotify.com/playlist/37i9dQZF1DX3rxVfibe1L0" target="_blank" tabindex="0">Playlist 🎵</a>
+      <a href="#timeline" onclick="navigate(event,'playlist')" tabindex="0">Playlist 🎵</a>
+
     </nav>
     <button id="themeToggle" aria-label="Toggle theme">🌙</button>
   </header>
@@ -140,21 +140,42 @@
         <div id="typedText"></div>
 
         <!-- Gallery -->
-        <div class="gallery">
-          <div class="photo-card"><img loading="lazy" src="..." alt="Photo"><div class="caption">Moment</div></div>
+        <!-- Gallery -->
+      <div class="gallery"> <!-- Photo Cards --> <!-- Copy-paste from your existing photo cards, unchanged --> <!-- Just updating layout & transitions -->
+        <div class="photo-card"> <img src="https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FTxgPNk2KZKM9lts5EFTr%2Fimg_0322.jpg?alt=media&token=2db64a6c-3308-40e5-bb85-8bdfda6aff73" alt="Photo 1"> 
+        <div class="caption">Successful Suitcase Rummage</div> 
         </div>
-      </div>
+        <div class="photo-card"> <img src="https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FTxgPNk2KZKM9lts5EFTr%2Fimg_0993.jpg?alt=media&token=4cf78323-83c1-4b69-a830-24bda274896a" alt="Photo 2">
+          <div class="caption">Our Painting Date</div>
+        </div>
+        <div class="photo-card"> <img src="https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FTxgPNk2KZKM9lts5EFTr%2Fimg_9871.jpg?alt=media&token=ca02f570-3592-471b-9425-51045387e4f5" alt="Photo 3"> 
+          <div class="caption">Wardrobe Swap Wooo</div> 
+        </div> 
+        <div class="photo-card"> <img src="https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FPrWdn00KRqq1WqGt79IW%2Fimg_1238.jpg?alt=media&token=2b8fd76a-7be9-4e09-8a48-53aeeef8f330" alt="Photo 4"> 
+          <div class="caption">Our Silly Moments</div> 
+        </div> 
+        <div class="photo-card"> <img src="https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FPrWdn00KRqq1WqGt79IW%2Fimg_0872.jpg?alt=media&token=4c5fbaa4-a71a-499d-8f63-b1cecdbf23c3" alt="Photo 5">
+          <div class="caption">Your Birthday</div>
+        </div> 
+        <div class="photo-card"> <img src="https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FPrWdn00KRqq1WqGt79IW%2Fimg_0508.jpg?alt=media&token=30dcaa2c-11b7-4170-8b81-111223ced5ab" alt="Photo 6"> 
+          <div class="caption">Awww She's So Tall</div>
+        </div>
+        <div class="photo-card"> <img src="https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FPrWdn00KRqq1WqGt79IW%2Fimg_0514.jpg?alt=media&token=59de08a2-e876-4c47-a829-fbe0801a6cd3" alt="Photo 7">
+          <div class="caption">You + Me = 💕</div> 
+        </div> 
+        <div class="photo-card"> <img src="https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FPrWdn00KRqq1WqGt79IW%2Fimg_8643.jpg?alt=media&token=a8e21764-3716-4303-bdb6-dc61c790cbb2" alt="Photo 8"> 
+          <div class="caption">Where It Officially Started</div>
+        </div> 
+      </div> 
+    </div> 
+  </div>
     </section>
 
-    <!-- Timeline -->
-    <section id="timeline" class="screen" role="region" aria-labelledby="timeline-heading">
-      <div class="overlay reveal">
-        <h2 id="timeline-heading">Our Journey Timeline</h2>
-        <div class="timeline">
-          <div class="timeline-item"><strong>2024-09-06</strong><p>First Met Online</p></div>
-          <div class="timeline-item"><strong>2024-10-12</strong><p>First Painting Date</p></div>
-          <div class="timeline-item"><strong>2024-11-25</strong><p>Started Dating</p></div>
-        </div>
+
+    <section id="playlist" class="screen" role="region" aria-labelledby="playlist-heading">
+      <div class="overlay reveal playlist-embed">
+        <h2 id="playlist-heading">Our Love Playlist</h2>
+        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/0KvD6vNxSfTJsEAlTjPjBK?utm_source=generator&theme=0" width="100%" height="352" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
       </div>
     </section>
   </main>
@@ -203,7 +224,12 @@
       const diff = Math.floor((new Date() - start) / (1000 * 60 * 60 * 24));
       document.getElementById('dayCounter').textContent = `We've been together for ${diff} days 💘`;
     })();
-
+    (function() {
+      const start = new Date('2024-09-06');
+      const diff = Math.floor((new Date() - start) / (1000 * 60 * 60 * 24));
+      document.getElementById('dayCounter').textContent = `We've known each other for ${diff} days 💘`;
+    })();
+    
     // Theme Toggle
     const themeBtn = document.getElementById('themeToggle');
     themeBtn.addEventListener('click', () => {
