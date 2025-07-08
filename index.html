@@ -4,142 +4,234 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>For Elly 💌</title>
-
-  <!-- PWA Manifest -->
   <link rel="manifest" href="manifest.json">
-
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-
-  <!-- Main Styles -->
   <style>
     :root {
       --pink-light: #ffb6c1;
       --pink: #ff69b4;
       --pink-dark: #c94e68;
-      --bg-light: rgba(255, 248, 248, 0.95);
-      --bg-overlay: rgba(255,255,255,0.9);
+      --bg-overlay: rgba(255, 255, 255, 0.9);
       --text-dark: #333;
       --radius: 12px;
       --transition: 0.3s ease;
-      --bg-color: var(--bg-overlay);
-      --text-color: var(--text-dark);
     }
     [data-theme="dark"] {
-      --bg-color: #2c2c2c;
-      --text-color: #eee;
+      --bg-overlay: #2c2c2c;
+      --text-dark: #eee;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body {
-      height: 100%; font-family: 'Poppins', sans-serif;
-      background: url('https://amsterdamian.com/wp-content/uploads/2021/03/tulips-7jpg_s.jpg') no-repeat center center fixed;
-      background-size: cover; scroll-behavior: smooth; overflow-x: hidden;
-      color: var(--text-color);
+    body {
+      min-height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      background: url('https://amsterdamian.com/wp-content/uploads/2021/03/tulips-7jpg_s.jpg') no-repeat center/cover fixed;
+      color: var(--text-dark);
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+      background-color: var(--bg-overlay);
     }
     header {
-      position: fixed; top: 0; width: 100%; transition: background var(--transition), transform var(--transition);
-      background: var(--bg-color); backdrop-filter: blur(10px); z-index:1000;
+      position: fixed; top: 0; width: 100%;
+      background: var(--bg-overlay);
+      backdrop-filter: blur(10px);
+      transition: background var(--transition), transform var(--transition);
+      z-index: 1000;
     }
     header.scrolled { transform: translateY(-80%); }
-    nav { max-width:1100px; margin:auto; display:flex; justify-content:center; gap:2rem; padding:0.5rem; }
-    nav a { font-weight:500; color:var(--pink-dark); text-decoration:none; padding:0.5rem; border-radius:var(--radius); transition:var(--transition); }
-    nav a.active, nav a:hover { background:var(--pink-light); color:#fff; }
-    #themeToggle { position: absolute; right:1rem; top:1rem; background:none; border:none; cursor:pointer; font-size:1.2em; }
+    nav {
+      max-width: 1100px; margin: auto;
+      display: flex; justify-content: center; gap: 2rem;
+      padding: 0.5rem;
+    }
+    nav a {
+      font-weight: 500;
+      color: var(--pink-dark);
+      text-decoration: none;
+      padding: 0.5rem;
+      border-radius: var(--radius);
+      transition: var(--transition);
+    }
+    nav a.active,
+    nav a:hover {
+      background: var(--pink-light);
+      color: #fff;
+    }
+    #themeToggle {
+      position: absolute; right: 1rem; top: 1rem;
+      background: none; border: none;
+      cursor: pointer; font-size: 1.2em;
+    }
+    main { padding-top: 4rem; }
+    .screen { display: none; padding: 6rem 1rem 1rem; text-align: center; }
+    .screen.active { display: flex; flex-direction: column; align-items: center; }
+    h1, h2 { color: var(--pink-dark); margin-bottom: 1rem; }
+    h1 { font-size: 2.5em; }
 
-    main { padding-top:4rem; }
-    .screen { display:none; padding:6rem 1rem 1rem; justify-content:center; align-items:flex-start; text-align:center; }
-    .screen.active { display:flex; }
-    h1 { font-size:2.5em; color:var(--pink-dark); margin-bottom:0.5em; }
+    /* Intro */
+    .intro h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 3.5em;
+      color: #ffeef2;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+      animation: bounce 1.5s infinite alternate;
+    }
+    .intro button {
+      margin-top: 1rem;
+      padding: 0.8em 2em;
+      font-size: 1.2em;
+      background: linear-gradient(to right, var(--pink-light), var(--pink));
+      color: #fff;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(255,105,180,0.4);
+      animation: pulse 2s infinite;
+      transition: transform .2s;
+    }
+    .intro button:hover { transform: scale(1.05); }
 
-    /* Home */
-    .intro h1 { font-family:'Pacifico', cursive; color:#ffeef2; font-size:3.5em; text-shadow:2px 2px 6px rgba(0,0,0,0.4); animation:bounce 1.5s infinite alternate; }
-    .intro button { padding:14px 36px; font-size:1.3em; background:linear-gradient(to right,var(--pink-light),var(--pink)); color:#fff; border:none; border-radius:30px; cursor:pointer; box-shadow:0 8px 20px rgba(255,105,180,0.4); animation:pulse 2s infinite; transition:transform .2s; }
-    .intro button:hover { transform:scale(1.05); }
+    /* Overlay Containers */
+    .overlay {
+      background: var(--bg-overlay);
+      padding: 2rem;
+      border-radius: var(--radius);
+      max-width: 800px; width: 95%;
+      max-height: 85vh; overflow-y: auto;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.1);
+    }
+    .counter { font-size: 1.1em; margin-bottom: 1rem; }
+    #typedText {
+      font-size: 1.1em;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      opacity: 0;
+      transition: opacity 1s ease;
+      min-height: 150px;
+      margin-bottom: 2rem;
+    }
 
-    /* Anniversary */
-    .overlay { background:var(--bg-color); padding:2rem; border-radius:var(--radius); max-width:800px; width:95%; max-height:85vh; overflow-y:auto; box-shadow:0 8px 40px rgba(0,0,0,0.1); margin:auto; }
-    #dayCounter { font-size:1.2em; margin-bottom:1em; color:var(--pink-dark); }
-    #typedText { font-size:1.2em; line-height:1.7; white-space:pre-wrap; opacity:0; transition:opacity 1s ease; min-height:150px; margin-bottom:2rem; color:var(--pink-dark); }
+    /* Gallery */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .photo-card {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transition: transform var(--transition);
+      cursor: pointer;
+    }
+    .photo-card img {
+      width: 100%; height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+    .photo-card:hover { transform: scale(1.03); }
+    .photo-card .caption {
+      position: absolute; bottom: 0; width: 100%;
+      background: var(--pink-light); color: #fff;
+      padding: 0.5rem; font-size: 0.9em;
+      text-align: center;
+    }
 
-    /* Gallery & Lightbox */
-    .gallery { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1rem; margin-bottom:2rem; }
-    .photo-card { position:relative; border-radius:var(--radius); overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,0.2); transition:transform var(--transition); cursor:pointer; }
-    .photo-card img { width:100%; height:200px; object-fit:cover; display:block; }
-    .photo-card:hover, .photo-card:focus { transform:scale(1.03); }
-    .photo-card .caption { position:absolute; bottom:0; width:100%; background:var(--pink-light); color:#fff; padding:0.5rem; font-size:0.9em; }
-    #lightbox { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); display:none; align-items:center; justify-content:center; z-index:2000; }
-    #lightbox img { max-width:90%; max-height:80%; }
-    #lightbox .close { position:absolute; top:2rem; right:2rem; font-size:2rem; color:#fff; cursor:pointer; }
+    /* Lightbox */
+    #lightbox {
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8);
+      display: none; align-items: center; justify-content: center;
+      z-index: 2000;
+    }
+    #lightbox img { max-width: 90%; max-height: 80%; }
+    #lightbox .close {
+      position: absolute; top: 2rem; right: 2rem;
+      font-size: 2rem; color: #fff;
+      cursor: pointer;
+    }
 
-    /* Timeline */
-    .timeline { display:flex; overflow-x:auto; gap:2rem; padding:1rem 0; }
-    .timeline-item { flex:0 0 auto; background:var(--bg-light); padding:1rem; border-radius:var(--radius); min-width:200px; }
+    /* Playlist Embed */
+    .playlist-embed iframe {
+      border-radius: var(--radius);
+      width: 100%; height: 352px;
+    }
 
     /* Scroll-to-top */
-    #toTop { position:fixed; bottom:1rem; right:1rem; padding:0.8rem; background:var(--pink); color:#fff; border:none; border-radius:50%; font-size:1.5em; cursor:pointer; display:none; }
+    #toTop {
+      position: fixed; bottom: 1rem; right: 1rem;
+      padding: 0.8rem;
+      background: var(--pink);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      font-size: 1.5em;
+      cursor: pointer;
+      display: none;
+    }
 
     /* Animations */
-    @keyframes fadeIn { from{opacity:0;transform:translateY(20px);} to{opacity:1;transform:translateY(0);} }
-    @keyframes bounce { 0%{transform:translateY(0);}100%{transform:translateY(-8px);} }
-    @keyframes pulse { 0%{box-shadow:0 0 0 0 rgba(255,105,180,0.5);}70%{box-shadow:0 0 0 15px rgba(255,105,180,0);}100%{box-shadow:0;} }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-8px); } }
+    @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(255,105,180,0.5); } 70% { box-shadow: 0 0 0 15px rgba(255,105,180,0); } 100% { box-shadow: 0; } }
   </style>
 </head>
 <body data-theme="light">
-  <!-- Floating hearts -->
+  <!-- Floating Hearts -->
   <script>
     setInterval(() => {
       const heart = document.createElement('div');
-      heart.className = 'heart';
-      heart.innerHTML = '❤️';
-      heart.style.position = 'fixed';
-      heart.style.left = Math.random()*100 + 'vw';
-      heart.style.top = Math.random()*100 + 'vh';
-      heart.style.pointerEvents = 'none';
+      heart.textContent = '❤️';
+      Object.assign(heart.style, {
+        position: 'fixed',
+        left: `${Math.random() * 100}vw`,
+        top: `${Math.random() * 100}vh`,
+        pointerEvents: 'none'
+      });
       document.body.appendChild(heart);
-      heart.animate(
-        [{ transform: 'scale(1)', opacity: 1 }, { transform: 'scale(0)', opacity: 0 }],
-        { duration: 2000 }
-      );
+      heart.animate([
+        { transform: 'scale(1)', opacity: 1 },
+        { transform: 'scale(0)', opacity: 0 }
+      ], { duration: 2000 });
       setTimeout(() => heart.remove(), 2000);
     }, 800);
   </script>
 
-  <!-- Background music with controls -->
-  <div style="position:fixed; bottom:1rem; left:1rem; z-index:1000;">
-    <button id="musicToggle">🔊</button>
+  <!-- Audio Controls -->
+  <div class="audio-controls">
+    <button id="musicToggle" aria-label="Toggle music">🔊</button>
     <audio id="bgMusic" loop>
       <source src="https://cdn.pixabay.com/download/audio/2023/03/26/audio_2f93402b08.mp3?filename=romantic-music-144109.mp3" type="audio/mp3">
     </audio>
   </div>
 
-  <!-- Header -->
   <header role="banner">
     <nav role="navigation">
-      <a href="#home" class="active" onclick="navigate(event,'home')" tabindex="0">Home</a>
-      <a href="#anniversary" onclick="navigate(event,'anniversary')" tabindex="0">Letter</a>
-      <a href="#timeline" onclick="navigate(event,'playlist')" tabindex="0">Playlist 🎵</a>
-
+      <a href="#home" class="active" data-target="home">Home</a>
+      <a href="#letter" data-target="letter">Letter</a>
+      <a href="#playlist" data-target="playlist">Playlist 🎵</a>
     </nav>
     <button id="themeToggle" aria-label="Toggle theme">🌙</button>
   </header>
 
   <main>
-    <!-- Home -->
-    <section id="home" class="screen active" role="region" aria-labelledby="home-heading">
+    <section id="home" class="screen active">
       <div class="intro">
-        <h1 id="home-heading">For Elly 💌</h1>
-        <button onclick="navigate(null,'anniversary')">Open</button>
+        <h1>For Elly 💌</hn>
+        <button data-target="letter">Open</button>
       </div>
     </section>
 
-    <!-- Anniversary -->
-    <section id="anniversary" class="screen" role="region" aria-labelledby="ann-heading">
+    <section id="letter" class="screen">
       <div class="overlay reveal">
-        <p id="dayCounter" aria-live="polite"></p>
-        <h1 id="ann-heading">Happy 7 Months, Elly 🌸</h1>
+        <p id="togetherCounter" class="counter" aria-live="polite"></p>
+        <p id="knownCounter" class="counter" aria-live="polite"></p>
+        <h1>Happy 7 Months, Elly 🌸</h1>
         <div id="typedText"></div>
 
-        <!-- Gallery -->
+                <!-- Gallery -->
         <!-- Gallery -->
       <div class="gallery"> <!-- Photo Cards --> <!-- Copy-paste from your existing photo cards, unchanged --> <!-- Just updating layout & transitions -->
         <div class="photo-card"> <img src="https://firebasestorage.googleapis.com/v0/b/codedex-io.appspot.com/o/buildAssets%2FTxgPNk2KZKM9lts5EFTr%2Fimg_0322.jpg?alt=media&token=2db64a6c-3308-40e5-bb85-8bdfda6aff73" alt="Photo 1"> 
@@ -171,98 +263,100 @@
   </div>
     </section>
 
-
-    <section id="playlist" class="screen" role="region" aria-labelledby="playlist-heading">
+    <section id="playlist" class="screen">
       <div class="overlay reveal playlist-embed">
-        <h2 id="playlist-heading">Our Love Playlist</h2>
-        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/0KvD6vNxSfTJsEAlTjPjBK?utm_source=generator&theme=0" width="100%" height="352" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        <h2>Our Love Playlist</h2>
+        <iframe src="https://open.spotify.com/embed/playlist/0KvD6vNxSfTJsEAlTjPjBK?utm_source=generator&theme=0"
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                loading="lazy"></iframe>
       </div>
     </section>
   </main>
 
-  <!-- Lightbox -->
   <div id="lightbox" role="dialog" aria-modal="true">
-    <span class="close" aria-label="Close lightbox">×</span>
-    <img src="" alt="Expanded photo">
+    <span class="close" aria-label="Close">×</span>
+    <img alt="Expanded photo">
   </div>
-
-  <!-- Scroll to Top -->
   <button id="toTop" aria-label="Scroll to top">↑</button>
 
-  <!-- JavaScript -->
   <script>
+    const screens = document.querySelectorAll('.screen');
+    const navLinks = document.querySelectorAll('nav a');
+    const themeToggle = document.getElementById('themeToggle');
+    const musicBtn = document.getElementById('musicToggle');
+    const music = document.getElementById('bgMusic');
+    const toTop = document.getElementById('toTop');
+
     // Navigation
-    function navigate(e, id) {
-      if (e) e.preventDefault();
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-      document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
-      document.querySelector(`nav a[href="#${id}"]`).classList.add('active');
-      if (id === 'anniversary') startTyping();
+    function showScreen(id) {
+      screens.forEach(s => s.classList.toggle('active', s.id === id));
+      navLinks.forEach(a => a.classList.toggle('active', a.dataset.target === id));
+      if (id === 'letter') startTyping();
     }
+    navLinks.forEach(link => link.addEventListener('click', e => {
+      e.preventDefault(); showScreen(link.dataset.target);
+    }));
+    document.querySelector('.intro button').addEventListener('click', () => showScreen('letter'));
 
     // Typing effect
     function startTyping() {
-      const txt = `I wish I could be right beside you today, but until then.\n\nThank you for being my sunshine and softness through it all.\n\nI might not always say it the right way, but I hope you always feel how deeply I love you.\n\nHere’s to every beautiful, silly, and perfectly imperfect moment we’ve shared. 💖`;
-      let i = 0;
+      const text = `I wish I could be right beside you today, but until then.\n\nThank you for being my sunshine and softness through it all.\n\nI might not always say it the right way, but I hope you always feel how deeply I love you.\n\nHere’s to every beautiful, silly, and perfectly imperfect moment we’ve shared. 💖`;
       const tgt = document.getElementById('typedText');
       tgt.textContent = '';
-      tgt.style.opacity = 0;
-      (function type() {
-        if (i < txt.length) {
-          tgt.textContent += txt.charAt(i++);
-          setTimeout(type, 35);
-        } else {
-          tgt.style.opacity = 1;
-        }
-      })();
+      tgt.style.opacity = 1;
+      Array.from(text).forEach((ch, i) => setTimeout(() => tgt.textContent += ch, 35 * i));
     }
 
-    // Anniversary Day Counter
-    (function() {
-      const start = new Date('2024-11-25');
-      const diff = Math.floor((new Date() - start) / (1000 * 60 * 60 * 24));
-      document.getElementById('dayCounter').textContent = `We've been together for ${diff} days 💘`;
-    })();
-    (function() {
-      const start = new Date('2024-09-06');
-      const diff = Math.floor((new Date() - start) / (1000 * 60 * 60 * 24));
-      document.getElementById('dayCounter').textContent = `We've known each other for ${diff} days 💘`;
-    })();
-    
-    // Theme Toggle
-    const themeBtn = document.getElementById('themeToggle');
-    themeBtn.addEventListener('click', () => {
-      const theme = document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-      document.body.setAttribute('data-theme', theme);
-      themeBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
+    // Day counters
+    function updateCounters() {
+      const now = Date.now();
+      const together = Math.floor((now - new Date('2024-11-25')) / 864e5);
+      const known = Math.floor((now - new Date('2024-09-06')) / 864e5);
+      document.getElementById('togetherCounter').textContent = `Together for ${together} days 💘`;
+      document.getElementById('knownCounter').textContent = `Known for ${known} days 💘`;
+    }
+    updateCounters();
+
+    // Theme toggle
+    themeToggle.addEventListener('click', () => {
+      const theme = document.body.dataset.theme === 'dark' ? 'light' : 'dark';
+      document.body.dataset.theme = theme;
+      themeToggle.textContent = theme === 'dark' ? '☀️' : '🌙';
       localStorage.setItem('theme', theme);
     });
-    const saved = localStorage.getItem('theme'); if (saved) document.body.setAttribute('data-theme', saved);
+    if (localStorage.theme) document.body.dataset.theme = localStorage.theme;
 
-    // Music Toggle
-    const music = document.getElementById('bgMusic'), mBtn = document.getElementById('musicToggle');
-    mBtn.addEventListener('click', () => { if (music.paused) { music.play(); mBtn.textContent='🔇'; } else { music.pause(); mBtn.textContent='🔊'; }});
+    // Music control
+    musicBtn.addEventListener('click', () => {
+      if (music.paused) { music.play(); musicBtn.textContent = '🔇'; }
+      else { music.pause(); musicBtn.textContent = '🔊'; }
+    });
 
-    // Scroll header, reveal animations & to-top button
-    const toTop = document.getElementById('toTop');
-    let lastY = window.scrollY;
+    // Scroll & reveal
+    let lastY = 0;
     window.addEventListener('scroll', () => {
       document.querySelector('header').classList.toggle('scrolled', window.scrollY > lastY);
-      document.querySelectorAll('.reveal').forEach(el => { if (el.getBoundingClientRect().top < window.innerHeight * 0.9) el.style.animation = 'fadeIn 0.6s forwards'; });
+      document.querySelectorAll('.reveal').forEach(el => {
+        if (el.getBoundingClientRect().top < window.innerHeight * 0.9) el.style.animation = 'fadeIn 0.6s forwards';
+      });
       lastY = window.scrollY;
       toTop.style.display = window.scrollY > 300 ? 'block' : 'none';
     });
-    toTop.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
+    toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-    // Lightbox logic & ESC key
-    const lb = document.getElementById('lightbox');
-    document.querySelectorAll('.photo-card img').forEach(img => img.addEventListener('click', () => { lb.querySelector('img').src = img.src; lb.style.display = 'flex'; }));
-    document.querySelector('#lightbox .close').addEventListener('click', () => lb.style.display='none');
-    window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && lb.style.display==='flex') lb.style.display='none'; });
+    // Lightbox
+    const lightbox = document.getElementById('lightbox');
+    document.querySelectorAll('.photo-card img').forEach(img => img.addEventListener('click', () => {
+      lightbox.querySelector('img').src = img.src;
+      lightbox.style.display = 'flex';
+    }));
+    lightbox.querySelector('.close').addEventListener('click', () => lightbox.style.display = 'none');
+    window.addEventListener('keydown', e => { if (e.key === 'Escape' && lightbox.style.display === 'flex') lightbox.style.display = 'none'; });
 
     // Service Worker
-    if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('/service-worker.js'));
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('/service-worker.js'));
+    }
   </script>
 </body>
 </html>
