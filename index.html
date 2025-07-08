@@ -71,19 +71,9 @@
     #lightbox img { max-width:90%; max-height:80%; }
     #lightbox .close { position:absolute; top:2rem; right:2rem; font-size:2rem; color:#fff; cursor:pointer; }
 
-    /* Q&A & Quiz */
-    .question-section, .quiz-section { text-align:left; margin-bottom:2rem; }
-    .question-section textarea { width:100%; padding:0.8rem; border:2px solid var(--pink); border-radius:var(--radius); resize:vertical; }
-    .question-section button,.quiz-section button { margin-top:0.5rem; padding:0.6rem 1.2rem; background:var(--pink); color:#fff; border:none; border-radius:var(--radius); cursor:pointer; }
-    .question-section button:hover,.quiz-section button:hover { background:var(--pink-dark); }
-    #questionOutput { margin-top:1rem; font-style:italic; }
-    .quiz-section form { display:flex; flex-direction:column; gap:0.5rem; }
-    .quiz-section label { display:flex; align-items:center; gap:0.5rem; }
-    .quiz-section input[type=radio] { accent-color:var(--pink); }
-    #quizOutput { margin-top:1rem; font-weight:600; }
-    .correct { color:green; }
-    .incorrect { color:red; }
-    #secretMsg { margin-top:1rem; font-weight:600; color:var(--pink-dark); }
+    /* Timeline */
+    .timeline { display:flex; overflow-x:auto; gap:2rem; padding:1rem 0; }
+    .timeline-item { flex:0 0 auto; background:var(--bg-light); padding:1rem; border-radius:var(--radius); min-width:200px; }
 
     /* Scroll-to-top */
     #toTop { position:fixed; bottom:1rem; right:1rem; padding:0.8rem; background:var(--pink); color:#fff; border:none; border-radius:50%; font-size:1.5em; cursor:pointer; display:none; }
@@ -127,7 +117,6 @@
     <nav role="navigation">
       <a href="#home" class="active" onclick="navigate(event,'home')" tabindex="0">Home</a>
       <a href="#anniversary" onclick="navigate(event,'anniversary')" tabindex="0">Letter</a>
-      <a href="#questions" onclick="navigate(event,'questions')" tabindex="0">Q&A & Quiz</a>
       <a href="#timeline" onclick="navigate(event,'timeline')" tabindex="0">Timeline</a>
       <a href="https://open.spotify.com/playlist/37i9dQZF1DX3rxVfibe1L0" target="_blank" tabindex="0">Playlist 🎵</a>
     </nav>
@@ -150,39 +139,9 @@
         <h1 id="ann-heading">Happy 7 Months, Elly 🌸</h1>
         <div id="typedText"></div>
 
-        <!-- Copy & Share -->
-        <button id="copyText" title="Copy letter">Copy Letter 📋</button>
-        <button id="shareBtn" title="Share on Twitter">Share 🐦</button>
-
         <!-- Gallery -->
         <div class="gallery">
-          <!-- Add loading="lazy" for performance -->
-          <div class="photo-card"><img loading="lazy" src="..." alt="Photo 1"><div class="caption">Successful Suitcase Rummage</div></div>
-          <!-- ... other photo-cards ... -->
-        </div>
-      </div>
-    </section>
-
-    <!-- Q&A & Quiz -->
-    <section id="questions" class="screen" role="region" aria-labelledby="qa-heading">
-      <div class="overlay reveal">
-        <div class="question-section">
-          <h2 id="qa-heading">Ask Me Anything 💬</h2>
-          <textarea id="questionInput" rows="4" placeholder="What's on your mind?..." aria-label="Your question"></textarea>
-          <button onclick="submitQuestion()">Send</button>
-          <div id="questionOutput"></div>
-        </div>
-        <div class="quiz-section">
-          <h2>Quick Relationship Quiz 📖</h2>
-          <form id="quizForm">
-            <p>Where did we first meet?</p>
-            <label><input type="radio" name="quiz" value="A"> Mall</label>
-            <label><input type="radio" name="quiz" value="B"> Party</label>
-            <label><input type="radio" name="quiz" value="C"> Online</label>
-            <button type="button" onclick="submitQuiz()">Check Answer</button>
-          </form>
-          <div id="quizOutput"></div>
-          <div id="secretMsg" hidden>🎉 Surprise! Can’t wait for our next adventure 🥰</div>
+          <div class="photo-card"><img loading="lazy" src="..." alt="Photo"><div class="caption">Moment</div></div>
         </div>
       </div>
     </section>
@@ -195,7 +154,6 @@
           <div class="timeline-item"><strong>2024-09-06</strong><p>First Met Online</p></div>
           <div class="timeline-item"><strong>2024-10-12</strong><p>First Painting Date</p></div>
           <div class="timeline-item"><strong>2024-11-25</strong><p>Started Dating</p></div>
-          <!-- Add more events -->
         </div>
       </div>
     </section>
@@ -245,41 +203,6 @@
       const diff = Math.floor((new Date() - start) / (1000 * 60 * 60 * 24));
       document.getElementById('dayCounter').textContent = `We've been together for ${diff} days 💘`;
     })();
-
-    // Copy & Share
-    document.getElementById('copyText').addEventListener('click', () => {
-      const txt = document.getElementById('typedText').textContent;
-      navigator.clipboard.writeText(txt);
-      alert('Letter copied!');
-    });
-    document.getElementById('shareBtn').addEventListener('click', () => {
-      const text = encodeURIComponent(document.getElementById('typedText').textContent);
-      window.open(`https://twitter.com/intent/tweet?text=${text}`, '_blank');
-    });
-
-    // Q&A
-    function submitQuestion() {
-      const q = document.getElementById('questionInput').value.trim();
-      if (!q) return;
-      document.getElementById('questionOutput').textContent = `You asked: “${q}” — I'll share my thoughts soon! 💕`;
-      document.getElementById('questionInput').value = '';
-    }
-
-    // Quiz Logic
-    function submitQuiz() {
-      const form = document.getElementById('quizForm');
-      const choice = form.quiz.value;
-      const output = document.getElementById('quizOutput');
-      if (!choice) { output.textContent = 'Please select an answer.'; return; }
-      if (choice === 'C') {
-        output.textContent = 'Correct! 🎉';
-        output.className = 'correct';
-        document.getElementById('secretMsg').hidden = false;
-      } else {
-        output.textContent = 'Oops, try again.';
-        output.className = 'incorrect';
-      }
-    }
 
     // Theme Toggle
     const themeBtn = document.getElementById('themeToggle');
