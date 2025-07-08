@@ -124,11 +124,12 @@
 
   <!-- Header -->
   <header role="banner">
-    <nav role="navigation">
-      <a href="#home" class="active" onclick="navigate(event,'home')" tabindex="0">Home</a>
-      <a href="#anniversary" onclick="navigate(event,'anniversary')" tabindex="0">Letter</a>
-      <a href="#questions" onclick="navigate(event,'questions')" tabindex="0">Questions</a>
-    </nav>
+<nav role="navigation">
+  <a href="#home" class="active" onclick="navigate(event,'home')" tabindex="0">Home</a>
+  <a href="#anniversary" onclick="navigate(event,'anniversary')" tabindex="0">Letter</a>
+  <a href="https://open.spotify.com/playlist/37i9dQZF1DX3rxVfibe1L0" target="_blank" tabindex="0">Playlist 🎵</a>
+</nav>
+
     <button id="themeToggle" aria-label="Toggle theme">🌙</button>
   </header>
 
@@ -252,6 +253,11 @@ Here’s to every beautiful, silly, and perfectly imperfect moment we’ve share
       const diff = Math.floor((new Date() - start) / (1000 * 60 * 60 * 24));
       document.getElementById('dayCounter').textContent = `We've been together for ${diff} days 💘`;
     })();
+        (function() {
+      const start = new Date('2024-09-06'); 
+      const diff = Math.floor((new Date() - start) / (1000 * 60 * 60 * 24));
+      document.getElementById('dayCounter').textContent = `We've known each other together for ${diff} days 💘`;
+    })();
 
     // Q&A
     function submitQuestion() {
@@ -262,27 +268,7 @@ Here’s to every beautiful, silly, and perfectly imperfect moment we’ve share
     }
 
     // Quiz
-    function submitQuiz() {
-      const c = document.querySelector('input[name="quiz"]:checked');
-      const out = document.getElementById('quizOutput');
-      const secret = document.getElementById('secretMsg');
-      if (!c) {
-        out.textContent = 'Please select an option.';
-        out.className = '';
-        secret.hidden = true;
-        return;
-      }
-      if (c.value === 'B') {
-        out.textContent = 'Correct! 🎉 We first met at a party.';
-        out.className = 'correct';
-        secret.hidden = false;
-      } else {
-        out.textContent = 'Not quite, try again! 😉';
-        out.className = 'incorrect';
-        secret.hidden = true;
-      }
-    }
-
+    
     // Theme Toggle
     const themeBtn = document.getElementById('themeToggle');
     themeBtn.addEventListener('click', () => {
