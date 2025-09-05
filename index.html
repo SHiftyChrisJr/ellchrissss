@@ -91,67 +91,115 @@
     .intro button:hover { transform: scale(1.05); }
 
     /* Overlay Containers */
-    .overlay {
-      background: var(--bg-overlay);
-      padding: 2rem;
-      border-radius: var(--radius);
-      max-width: 800px; width: 95%;
-      max-height: 85vh; overflow-y: auto;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.1);
-    }
-    .counter { font-size: 1.1em; margin-bottom: 1rem; }
-    #typedText {
-      font-size: 1.1em;
-      line-height: 1.6;
-      white-space: pre-wrap;
-      opacity: 0;
-      transition: opacity 1s ease;
-      min-height: 150px;
-      margin-bottom: 2rem;
-    }
+    ./* Bigger, poppier hero card */
+.overlay.hero {
+  background: radial-gradient(1200px 600px at 50% -10%, rgba(255,255,255,0.96), var(--bg-overlay));
+  padding: 3rem 2.25rem;
+  border-radius: 20px;
+  max-width: 980px;
+  width: min(96%, 980px);
+  box-shadow: 0 24px 80px rgba(255,105,180,0.25), 0 10px 30px rgba(0,0,0,0.15);
+  position: relative;
+  backdrop-filter: blur(12px);
+  border: 2px solid rgba(255,105,180,0.25);
+}
 
-    /* Gallery */
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
-      margin-bottom: 2rem;
-    }
-    .photo-card {
-      position: relative;
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      transition: transform var(--transition);
-      cursor: pointer;
-    }
-    .photo-card img {
-      width: 100%; height: 200px;
-      object-fit: cover;
-      display: block;
-    }
-    .photo-card:hover { transform: scale(1.03); }
-    .photo-card .caption {
-      position: absolute; bottom: 0; width: 100%;
-      background: var(--pink-light); color: #fff;
-      padding: 0.5rem; font-size: 0.9em;
-      text-align: center;
-    }
+/* Animated candy border */
+.overlay.hero::after {
+  content: "";
+  position: absolute; inset: -3px;
+  border-radius: 22px;
+  background: conic-gradient(from 180deg, #ff69b4, #ffb6c1, #c94e68, #ff69b4);
+  filter: blur(8px);
+  opacity: 0.18;
+  z-index: -1;
+  animation: spin 8s linear infinite;
+}
 
-    /* Lightbox */
-    #lightbox {
-      position: fixed; top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.8);
-      display: none; align-items: center; justify-content: center;
-      z-index: 2000;
-    }
-    #lightbox img { max-width: 90%; max-height: 80%; }
-    #lightbox .close {
-      position: absolute; top: 2rem; right: 2rem;
-      font-size: 2rem; color: #fff;
-      cursor: pointer;
-    }
+/* Headline – bigger + gradient pop */
+.overlay.hero h1 {
+  font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+  line-height: 1.1;
+  margin-bottom: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  background: linear-gradient(90deg, #ff3e9e, #ff8cc8 35%, #ff3e9e 70%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 0 rgba(0,0,0,0); /* keep crisp */
+}
+
+/* Lead paragraph – larger, comfy */
+.overlay.hero p {
+  color: var(--text-dark);
+  font-size: clamp(1rem, 1.5vw, 1.15rem);
+  line-height: 1.75;
+}
+
+/* Counters – bolder + pill badges */
+.counter {
+  display: inline-block;
+  font-weight: 700;
+  color: #c94e68;
+  background: rgba(255,182,193,0.25);
+  border: 1px solid rgba(255,105,180,0.35);
+  padding: 0.5rem 0.85rem;
+  border-radius: 999px;
+  margin: 0 0.5rem 1rem 0;
+  font-size: clamp(0.95rem, 1.3vw, 1.05rem);
+}
+
+/* Countdown – bigger digits + soft cards */
+#countdown {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-top: 1.25rem;
+  flex-wrap: wrap;
+}
+#countdown span {
+  font-size: clamp(1.4rem, 3.8vw, 2rem);
+  font-weight: 800;
+  color: #ff3e9e;
+}
+#countdown > span,
+#countdown > span + span {
+  /* allows wrapping two-word labels cleanly */
+}
+#countdown::before { content: ""; }
+
+#countdown > span[id] {
+  background: rgba(255,255,255,0.7);
+  padding: 0.6rem 0.9rem;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(255,105,180,0.15);
+  border: 1px solid rgba(255,105,180,0.25);
+}
+
+/* Typed text – make it visible & roomy */
+#typedText {
+  font-size: clamp(1rem, 1.6vw, 1.15rem);
+  line-height: 1.8;
+  opacity: 0;              /* your script fades this in */
+  margin-top: 1rem;
+  color: var(--text-dark);
+}
+
+/* Slightly larger intro button */
+.intro button {
+  padding: 1rem 2.4rem;
+  font-size: 1.25em;
+  border-radius: 36px;
+}
+
+/* Reduce header hide amount so content stays visible */
+header.scrolled { transform: translateY(-55%); }
+
+/* Nice slow spin for border glow */
+@keyframes spin { to { transform: rotate(1turn); } }
+
 
     /* Playlist Embed */
     .playlist-embed iframe {
@@ -173,6 +221,7 @@
     }
 
     /* Animations */
+    @keyframes spin { to { transform: rotate(1turn); } }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-8px); } }
     @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(255,105,180,0.5); } 70% { box-shadow: 0 0 0 15px rgba(255,105,180,0); } 100% { box-shadow: 0; } }
@@ -225,12 +274,30 @@
     </section>
 
     <section id="letter" class="screen">
-      <div class="overlay reveal">
-        <p id="togetherCounter" class="counter" aria-live="polite"></p>
-        <p id="knownCounter" class="counter" aria-live="polite"></p>
-      <h1>Happy 1 Year Kinda Anniversary 🌸</h1>
-      <p> This year with you has been so amazing and i am really glad i met you. I know I may not be the best at times but i really do try , care and love you . I am so  lucky enough to call you my girlfriend I love you, Elly 💖</p>
+  <div class="overlay hero reveal">
+    <p id="togetherCounter" class="counter" aria-live="polite"></p>
+    <p id="knownCounter" class="counter" aria-live="polite"></p>
+
+    <h1>Happy 1 Year Kinda Anniversary 🌸</h1>
+
+    <p>
+      This year with you has been so amazing and I am really glad I met you.
+      I know I may not be the best at times but I really do try, care and love you.
+      I am so lucky to call you my girlfriend. I love you, Elly 💖
+    </p>
+
+    <!-- ensure this exists so your typing effect has a target -->
+    <div id="typedText" aria-live="polite"></div>
+
+    <div id="countdown" role="timer" aria-live="polite" style="margin-top:1rem;">
+      <span id="days">0</span> days
+      <span id="hours">0</span> hours
+      <span id="minutes">0</span> minutes
+      <span id="seconds">0</span> seconds
     </div>
+  </div>
+</section>
+
 
 <div id="countdown">
   <span id="days">0</span> days
