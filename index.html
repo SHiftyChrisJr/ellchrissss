@@ -8,136 +8,178 @@
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
   <style>
     :root{
-  --white: #ffffff;
-  --pink-50: #fff1f6;
-  --pink-100:#ffe2ed;
-  --pink-200:#ffc9dd;
-  --pink-300:#ff9ac2;
-  --pink-500:#ff69b4;
+  --pink-light:#ffb6c1;
+  --pink:#ff69b4;
+  --pink-dark:#c94e68;
+  --bg-overlay: rgba(255,255,255,1);
+  --text-dark:#333;
+  --radius:12px;
+  --transition:.3s ease;
 }
-
-/* clean the heading color typo */
-h1, h2 { color: var(--pink-500); margin-bottom: 1rem; }
-
-/* Subtle pink veil over the tulips so white/pink elements pop */
+[data-theme="dark"]{
+  --bg-overlay:#2c2c2c;
+  --text-dark:#eee;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
 body{
+  min-height:100vh;
+  font-family:'Poppins',sans-serif;
   background:
-    linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.75)) ,
-    linear-gradient(120deg, rgba(255,105,180,.12), rgba(255,255,255,0)) ,
-    url('https://amsterdamian.com/wp-content/uploads/2021/03/tulips-7jpg_s.jpg')
-    no-repeat center/cover fixed;
-  background-blend-mode: normal, screen, normal;
+    linear-gradient(180deg, rgba(255,255,255,.88), rgba(255,255,255,.78)),
+    linear-gradient(120deg, rgba(255,105,180,.12), rgba(255,255,255,0)),
+    url('https://amsterdamian.com/wp-content/uploads/2021/03/tulips-7jpg_s.jpg') no-repeat center/cover fixed;
+  color:#ff69b4;
+  scroll-behavior:smooth;
+  overflow-x:hidden;
+  background-color:var(--bg-overlay);
 }
-
-/* Header = white glass with pink accent on hover */
 header{
-  background: rgba(255,255,255,.85);
-  border-bottom: 1px solid rgba(255,105,180,.18);
-  box-shadow: 0 6px 20px rgba(255,105,180,.08);
+  position:fixed; top:0; width:100%;
+  background:rgba(255,255,255,.85);
+  backdrop-filter:blur(10px);
+  transition:background var(--transition), transform var(--transition);
+  z-index:1000;
+  border-bottom:1px solid rgba(255,105,180,.18);
+  box-shadow:0 6px 20px rgba(255,105,180,.08);
+}
+header.scrolled{transform:translateY(-55%);}
+nav{
+  max-width:1100px;margin:auto;
+  display:flex;justify-content:center;gap:2rem;
+  padding:.5rem;
 }
 nav a{
-  color: #cc4a82;
+  font-weight:500;color:var(--pink-dark);
+  text-decoration:none;padding:.5rem;border-radius:var(--radius);
+  transition:var(--transition);
 }
 nav a.active, nav a:hover{
-  background: linear-gradient(90deg, var(--pink-200), var(--pink-300));
+  background:linear-gradient(90deg, #ffc9dd, #ff9ac2);
   color:#fff;
 }
-
-/* —— MAIN HOME CARD (make it pop) —— */
-.screen#home{
-  position: relative;
-  min-height: calc(100dvh - 4rem);
+#themeToggle{
+  position:absolute;right:1rem;top:1rem;background:none;border:none;cursor:pointer;font-size:1.2em;
 }
+main{padding-top:4rem;}
+.screen{display:none;padding:6rem 1rem 1rem;text-align:center;}
+.screen.active{display:flex;flex-direction:column;align-items:center;}
+h1,h2{color:#ff69b4;margin-bottom:1rem;}
+h1{font-size:2.5em;}
 
-/* turn the intro block into a big pink-white glass hero */
+/* Intro = big white/pink glass hero */
+.screen#home{min-height:calc(100dvh - 4rem);}
 .intro{
-  position: relative;
-  padding: clamp(2.0rem, 4vw, 3rem) clamp(1.5rem, 3vw, 2.5rem);
-  border-radius: 28px;
-  width: min(92%, 980px);
+  position:relative;
+  padding:clamp(2rem,4vw,3rem) clamp(1.5rem,3vw,2.5rem);
+  border-radius:28px;width:min(92%,980px);
   background:
-    radial-gradient(1000px 500px at 50% -10%, rgba(255,255,255,.96), rgba(255,255,255,.85)) ,
+    radial-gradient(1000px 500px at 50% -10%, rgba(255,255,255,.96), rgba(255,255,255,.88)),
     linear-gradient(135deg, rgba(255,182,193,.35), rgba(255,255,255,0));
-  backdrop-filter: blur(12px);
-  border: 2px solid rgba(255,105,180,.22);
-  box-shadow:
-    0 30px 90px rgba(255,105,180,.22),
-    0 12px 36px rgba(0,0,0,.12);
-  overflow: hidden;
+  backdrop-filter:blur(12px);
+  border:2px solid rgba(255,105,180,.22);
+  box-shadow:0 30px 90px rgba(255,105,180,.22), 0 12px 36px rgba(0,0,0,.12);
+  overflow:hidden;
 }
-
-/* soft pink glow ring */
 .intro::after{
-  content:"";
-  position:absolute; inset:-4px;
-  border-radius:32px;
-  background: conic-gradient(from 180deg,
-     #ffffff 0 10%, #ff69b4 30%, #ffe2ed 55%, #ff69b4 80%, #ffffff 100%);
-  filter: blur(10px);
-  opacity:.16;
-  z-index:-1;
-  animation: spin 9s linear infinite;
+  content:"";position:absolute;inset:-4px;border-radius:32px;
+  background:conic-gradient(from 180deg,#ffffff 0 10%,#ff69b4 30%,#ffe2ed 55%,#ff69b4 80%,#ffffff 100%);
+  filter:blur(10px);opacity:.16;z-index:-1;animation:spin 9s linear infinite;
 }
-
-/* floating pink blobs for depth */
 .intro::before{
-  content:"";
-  position:absolute; inset:-20%;
+  content:"";position:absolute;inset:-20%;
   background:
     radial-gradient(280px 200px at 15% 20%, rgba(255,182,193,.45), transparent 60%),
     radial-gradient(260px 180px at 85% 25%, rgba(255,105,180,.35), transparent 60%),
     radial-gradient(260px 200px at 50% 90%, rgba(255,240,246,.9), transparent 60%);
-  z-index:-2;
-  animation: drift 18s ease-in-out infinite alternate;
+  z-index:-2;animation:drift 18s ease-in-out infinite alternate;
 }
-
-/* Hero title: white→pink gradient */
 .intro h1{
-  font-family:'Pacifico', cursive;
-  font-size: clamp(2.6rem, 6vw, 4rem);
-  line-height:1.05;
-  margin-bottom: 1rem;
-  background: linear-gradient(90deg, #ffffff, #ff69b4 60%, #ffc9dd);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  text-shadow: 0 1px 0 rgba(255,255,255,.8);
+  font-family:'Pacifico',cursive;
+  font-size:clamp(2.6rem,6vw,4rem);
+  line-height:1.05;margin-bottom:1rem;
+  background:linear-gradient(90deg,#ffffff,#ff69b4 60%,#ffc9dd);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  text-shadow:0 1px 0 rgba(255,255,255,.8);
 }
-
-/* Big candy button: white → pink */
 .intro button{
-  margin-top: 1rem;
-  padding: 1.05rem 2.6rem;
-  font-size: 1.15rem;
-  border-radius: 999px;
-  border: 2px solid rgba(255,105,180,.35);
-  background:
-    linear-gradient(180deg, #ffffff 0%, #ffe2ed 55%, #ffc9dd 100%);
+  margin-top:1rem;padding:1.05rem 2.6rem;font-size:1.15rem;border-radius:999px;
+  border:2px solid rgba(255,105,180,.35);
+  background:linear-gradient(180deg,#ffffff 0%,#ffe2ed 55%,#ffc9dd 100%);
   color:#cc2d74;
-  box-shadow:
-    0 14px 30px rgba(255,105,180,.22),
-    inset 0 1px 0 rgba(255,255,255,.8);
-  transition: transform .15s ease, box-shadow .2s ease;
+  box-shadow:0 14px 30px rgba(255,105,180,.22), inset 0 1px 0 rgba(255,255,255,.8);
+  transition:transform .15s ease, box-shadow .2s ease;
 }
-.intro button:hover{ transform: translateY(-2px) scale(1.03); }
-.intro button:active{ transform: translateY(0) scale(0.99); }
+.intro button:hover{transform:translateY(-2px) scale(1.03);}
+.intro button:active{transform:translateY(0) scale(.99);}
 
-/* keep the letter hero styling you already added, but give it whiter background */
+/* Letter card – crisp white/pink */
+.overlay{
+  background:var(--bg-overlay);
+  padding:2rem;border-radius:var(--radius);
+  max-width:800px;width:95%;
+  max-height:85vh;overflow-y:auto;
+  box-shadow:0 8px 40px rgba(0,0,0,.1);
+}
 .overlay.hero{
-  background:
-    radial-gradient(1000px 500px at 50% -10%, rgba(255,255,255,.98), rgba(255,255,255,.9));
-  box-shadow:
-    0 24px 80px rgba(255,105,180,.22),
-    0 10px 30px rgba(0,0,0,.12);
-  border: 2px solid rgba(255,105,180,.22);
+  background:radial-gradient(1000px 500px at 50% -10%, rgba(255,255,255,.98), rgba(255,255,255,.92));
+  padding:3rem 2.25rem;border-radius:20px;max-width:980px;width:min(96%,980px);
+  box-shadow:0 24px 80px rgba(255,105,180,.22), 0 10px 30px rgba(0,0,0,.12);
+  position:relative;backdrop-filter:blur(12px);
+  border:2px solid rgba(255,105,180,.22);
+}
+.overlay.hero::after{
+  content:"";position:absolute;inset:-3px;border-radius:22px;
+  background:conic-gradient(from 180deg,#ff69b4,#ffb6c1,#c94e68,#ff69b4);
+  filter:blur(8px);opacity:.18;z-index:-1;animation:spin 8s linear infinite;
+}
+.overlay.hero h1{
+  font-size:clamp(2.2rem,4.5vw,3.2rem);
+  line-height:1.1;margin-bottom:1rem;font-weight:800;letter-spacing:.3px;
+  background:linear-gradient(90deg,#ff3e9e,#ff8cc8 35%,#ff3e9e 70%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
 }
 
-/* utility animations */
-@keyframes spin{ to{ transform: rotate(360deg); } }
-@keyframes drift{
-  0%{ transform: translateY(0) translateX(0) scale(1); }
-  100%{ transform: translateY(-6px) translateX(6px) scale(1.02); }
+/* Counters & countdown */
+.counter{
+  display:inline-block;font-weight:700;color:#c94e68;
+  background:rgba(255,182,193,.25);
+  border:1px solid rgba(255,105,180,.35);
+  padding:.5rem .85rem;border-radius:999px;margin:0 .5rem 1rem 0;
+  font-size:clamp(.95rem,1.3vw,1.05rem);
 }
+#countdown{
+  display:grid;grid-auto-flow:column;gap:.75rem;justify-content:center;margin-top:1.25rem;flex-wrap:wrap;
+}
+#countdown span{
+  font-size:clamp(1.4rem,3.8vw,2rem);font-weight:800;color:#ff3e9e;
+}
+#countdown > span[id]{
+  background:rgba(255,255,255,.8);padding:.6rem .9rem;border-radius:14px;
+  box-shadow:0 8px 20px rgba(255,105,180,.15);
+  border:1px solid rgba(255,105,180,.25);
+}
+
+/* Typed text */
+#typedText{
+  font-size:clamp(1rem,1.6vw,1.15rem);line-height:1.8;opacity:0;margin-top:1rem;color:var(--text-dark);
+}
+
+/* Playlist */
+.playlist-embed iframe{border-radius:var(--radius);width:100%;height:352px;}
+
+/* Scroll-to-top */
+#toTop{
+  position:fixed;bottom:1rem;right:1rem;padding:.8rem;background:var(--pink);color:#fff;border:none;border-radius:50%;
+  font-size:1.5em;cursor:pointer;display:none;
+}
+
+/* Animations */
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+@keyframes bounce{from{transform:translateY(0);}to{transform:translateY(-8px);}}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,105,180,.5);}70%{box-shadow:0 0 0 15px rgba(255,105,180,0);}100%{box-shadow:0;}}
+@keyframes spin{to{transform:rotate(360deg);}}
+@keyframes drift{0%{transform:translateY(0) translateX(0) scale(1);}100%{transform:translateY(-6px) translateX(6px) scale(1.02);}}
+
   </style>
 </head>
 <body data-theme="light">
